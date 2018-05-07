@@ -1,0 +1,10 @@
+D:\App_Dev\GraveyardManager\GraveyardManager\bin\Debug\GraveyardManager.exe.config
+D:\App_Dev\GraveyardManager\GraveyardManager\bin\Debug\GraveyardManager.exe
+D:\App_Dev\GraveyardManager\GraveyardManager\bin\Debug\GraveyardManager.pdb
+D:\App_Dev\GraveyardManager\GraveyardManager\obj\Debug\GraveyardManager.csprojResolveAssemblyReference.cache
+D:\App_Dev\GraveyardManager\GraveyardManager\obj\Debug\GraveyardManager.frm_GraveyardManager.resources
+D:\App_Dev\GraveyardManager\GraveyardManager\obj\Debug\GraveyardManager.Properties.Resources.resources
+D:\App_Dev\GraveyardManager\GraveyardManager\obj\Debug\GraveyardManager.UC_Display.resources
+D:\App_Dev\GraveyardManager\GraveyardManager\obj\Debug\GraveyardManager.csproj.GenerateResource.Cache
+D:\App_Dev\GraveyardManager\GraveyardManager\obj\Debug\GraveyardManager.exe
+D:\App_Dev\GraveyardManager\GraveyardManager\obj\Debug\GraveyardManager.pdb
