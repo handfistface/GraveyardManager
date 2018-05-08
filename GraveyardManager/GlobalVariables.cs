@@ -15,7 +15,7 @@ namespace GraveyardManager
     /// </summary>
     public static class GlobalVariables
     {
-        public const string s_ApplicationVersion = "1.0";       //the application version
+        public const string s_ApplicationVersion = "0.1";       //the application version
         public static bool b_EnableDebugging = true;        //dont use a constant because the compiler complains when I use it in an if statement
     }
 }
