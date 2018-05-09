@@ -30,11 +30,13 @@
         {
             this.picb_Canvas = new System.Windows.Forms.PictureBox();
             this.btn_Tester = new System.Windows.Forms.Button();
+            this.btn_DrawRect = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picb_Canvas)).BeginInit();
             this.SuspendLayout();
             // 
             // picb_Canvas
             // 
+            this.picb_Canvas.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.picb_Canvas.Location = new System.Drawing.Point(3, 3);
             this.picb_Canvas.Name = "picb_Canvas";
             this.picb_Canvas.Size = new System.Drawing.Size(650, 794);
@@ -51,10 +53,21 @@
             this.btn_Tester.UseVisualStyleBackColor = true;
             this.btn_Tester.Click += new System.EventHandler(this.btn_Tester_Click);
             // 
+            // btn_DrawRect
+            // 
+            this.btn_DrawRect.Location = new System.Drawing.Point(659, 3);
+            this.btn_DrawRect.Name = "btn_DrawRect";
+            this.btn_DrawRect.Size = new System.Drawing.Size(138, 23);
+            this.btn_DrawRect.TabIndex = 2;
+            this.btn_DrawRect.Text = "Draw Plot";
+            this.btn_DrawRect.UseVisualStyleBackColor = true;
+            this.btn_DrawRect.Click += new System.EventHandler(this.btn_DrawRect_Click);
+            // 
             // UC_DrawGraveyard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btn_DrawRect);
             this.Controls.Add(this.btn_Tester);
             this.Controls.Add(this.picb_Canvas);
             this.Name = "UC_DrawGraveyard";
@@ -68,5 +81,6 @@
 
         private System.Windows.Forms.PictureBox picb_Canvas;
         private System.Windows.Forms.Button btn_Tester;
+        private System.Windows.Forms.Button btn_DrawRect;
     }
 }
