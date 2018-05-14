@@ -22,10 +22,14 @@ namespace GraveyardManager
         #region Graphics Variables
         private PictureBox picb_CommittedImage;     //The canvas after the user has made a change to it
         private Size sz_DefaultPlot = new Size(50, 25);     //default size of the plot
-        private List<Point> pol_Rects;      //the list of rectangle origin points
+        private Stack<Point> pos_Rects;      //the list of rectangle origin points
         private const int i_GCIterMax = 5;      //the maximum count i_GCIteration is allowed to reach before running GC.Collect()
         private int i_GCIteration;        //counter that how many iterations before GC.Collect is run (bitmaps are scary)
         #endregion Graphics Variables
+        #region Undo Variables
+        private int i_UndoMaxStack = 11;     //max amount of undo's before the stack dries up
+        private Stack<PictureBox> spicb_Undo;       //a stack of picture boxes used to revert the canvas
+        #endregion Undo Variables
 
         #region public UC_DrawGraveyard()
         /// <summary>
@@ -35,7 +39,8 @@ namespace GraveyardManager
         public UC_DrawGraveyard()
         {
             InitializeComponent();
-            pol_Rects = new List<Point>();      //create a new list of points
+            pos_Rects = new Stack<Point>();      //create a new list of points
+            spicb_Undo = new Stack<PictureBox>();       //create a new stack for the picture box
             i_GCIteration = 0;      //set the counter to 0
             picb_Canvas.Paint += Picb_Canvas_Paint;     //hook to a picture box paint event
             picb_Canvas.MouseMove += UC_DrawGraveyard_MouseMove;       //hook to a mouse moving event
@@ -195,6 +200,7 @@ namespace GraveyardManager
                 pen = Pens.Red;     //the color needs to be red if we're intersecting a grave
             else
                 pen = Pens.Gray;        //otherwise the cursor doesn't intersect another plot
+            p_MousePos = SnapOrigin(p_MousePos);
             g.DrawRectangle(pen, new Rectangle(p_MousePos, sz_DefaultPlot));     //draw a rectangle at the current position
             i_GCIteration++;        //increment the garbage collection counter
             if(i_GCIteration >= i_GCIterMax)
@@ -220,15 +226,86 @@ namespace GraveyardManager
                 {
                     sp_Bonk.Play();
                 }
+                //return so that the plot is not committed
                 return;
             }
             Graphics g = Graphics.FromImage(picb_CommittedImage.Image);     //get the graphics from the committed image because now this image needs modified
+            p_MousePos = SnapOrigin(p_MousePos);
             g.DrawRectangle(Pens.Black, new Rectangle(p_MousePos, sz_DefaultPlot));     //draw a rectangle on the point we're looking at
             picb_Canvas.Image = (Image)picb_CommittedImage.Image.Clone();       //clone that sucker onto the canvas that's being displayed
-            pol_Rects.Add(p_MousePos);      //add the point to the list of rectangle points
+            pos_Rects.Push(p_MousePos);      //add the point to the list of rectangle points
             Util.rtxtWriteLine("New plot: (" + p_MousePos.X + ", " + p_MousePos.Y + ")");
+            //start working with the picture box stack used for undoing
+            PictureBox picb_Stack = new PictureBox();
+            picb_Stack.Image = (Image)picb_Canvas.Image.Clone();        //clone the image onto the new stack entry
+            //has the max stack size been reached?
+            if (spicb_Undo.Count > i_UndoMaxStack)
+                spicb_Undo.Pop();       //then the max stack has been reached, pop an entry off before putting another one
+            spicb_Undo.Push(picb_Stack);        ///push a new entry onto the stack
+            //has the btn_Undo button been disabled?
+            if (!btn_Undo.Enabled)
+                btn_Undo.Enabled = true;        //then the button was disabled, re-enable it
         }
         #endregion private void CommitPlot(Point p_MousePos)
+        #region private Point SnapOrigin(Point p)
+        /// <summary>
+        /// SnapOrigin()
+        /// This method will take a an unmodified point and figure out a new point to place the origin at
+        /// </summary>
+        /// <param name="p">The unmodified point of the mouse pointer</param>
+        /// <returns>A modified point of where to snap the rectangle, if the point is not near another plot then this will return the point argument</returns>
+        private Point SnapOrigin(Point p)
+        {
+            Point p_Mod = p;      //create a new point
+            int i_Spacing = 2;      //pixel spacing between the plots
+            int i_Snapping = 10;     //number of pixels within a line to snap to
+            //loop through each plot in pol_Rects
+            foreach (Point p_Origin in pos_Rects)
+            {
+                //are we near the left side of the rectangle?
+                if( (p.Y >= p_Origin.Y - i_Snapping) && 
+                    (p.Y <= p_Origin.Y + sz_DefaultPlot.Height + i_Snapping) &&
+                    (p.X >= p_Origin.X - i_Snapping) &&
+                    (p.X <= p_Origin.X + i_Snapping)
+                  )
+                {
+                    p_Mod = new Point(p_Origin.X - sz_DefaultPlot.Width - i_Spacing, p_Origin.Y);
+                    break;
+                }
+                //are we near the right side of the rectangle?
+                if ((p.Y >= p_Origin.Y - i_Snapping) &&
+                    (p.Y <= p_Origin.Y + sz_DefaultPlot.Height + i_Snapping) &&
+                    (p.X >= p_Origin.X + sz_DefaultPlot.Width - i_Snapping) &&
+                    (p.X <= p_Origin.X + sz_DefaultPlot.Width + i_Snapping)
+                  )
+                {
+                    p_Mod = new Point(p_Origin.X + sz_DefaultPlot.Width + i_Spacing, p_Origin.Y);
+                    break;
+                }
+                //are we near the top side of the rectangle?
+                if ((p.Y >= p_Origin.Y - i_Snapping) &&
+                    (p.Y <= p_Origin.Y + i_Snapping) &&
+                    (p.X >= p_Origin.X - i_Snapping) &&
+                    (p.X <= p_Origin.X + sz_DefaultPlot.Width + i_Snapping)
+                  )
+                {
+                    p_Mod = new Point(p_Origin.X, p_Origin.Y - sz_DefaultPlot.Height - i_Spacing);
+                    break;
+                }
+                //are we near the bottom side of the rectangle? 
+                if ((p.Y >= p_Origin.Y + sz_DefaultPlot.Height - i_Snapping) &&
+                    (p.Y <= p_Origin.Y + sz_DefaultPlot.Height + i_Snapping) &&
+                    (p.X >= p_Origin.X - i_Snapping) &&
+                    (p.X <= p_Origin.X + sz_DefaultPlot.Width + i_Snapping)
+                  )
+                {
+                    p_Mod = new Point(p_Origin.X, p_Origin.Y + sz_DefaultPlot.Height + i_Spacing);
+                    break;
+                }
+            }
+            return p_Mod;       //return the new modified origin point
+        }
+        #endregion private Point SnapOrigin(Point p)
 
         #region private bool IsWithinPlot(Point p)
         /// <summary>
@@ -242,7 +319,7 @@ namespace GraveyardManager
         {
             bool b_Inside = false;      //indicates whether the point falls inside a grave
             //every single grave must be processed to determine if the point argument is inside
-            foreach(Point p_GraveOrigin in pol_Rects)
+            foreach(Point p_GraveOrigin in pos_Rects)
             {
                 if(p.X >= p_GraveOrigin.X &&
                    p.X <= p_GraveOrigin.X + sz_DefaultPlot.Width &&
@@ -257,5 +334,38 @@ namespace GraveyardManager
             return b_Inside;        //return the flag indicating if the point is within a grave
         }
         #endregion private bool IsWithinPlot(Point p)
+
+        #region private void btn_Undo_Click()
+        /// <summary>
+        /// btn_Undo_Click()
+        /// This will pop an item off the stack of picture boxes and reassign the committed picture box
+        /// If the stack empties itself then it will disable the button
+        /// The button will be re-enabled on a CommitPlot() call
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_Undo_Click(object sender, EventArgs e)
+        {
+            PictureBox picb_Popped = spicb_Undo.Pop();      //pop off a picture box from the stack of undo picture boxes
+            pos_Rects.Pop();        //pop the last drawn plot off the stack
+            //has the beginning of the stack been reached?
+            if (spicb_Undo.Count <= 0)
+                btn_Undo.Enabled = false;       //then the stack is exhausted, disable the button to prevent any further pops
+            picb_CommittedImage.Image = (Image)picb_Popped.Image.Clone();
+            //is this update a cross threaded access?
+            if(picb_Canvas.InvokeRequired)
+            {
+                //then a cross thread access is being requested
+                picb_Canvas.Invoke((MethodInvoker)delegate
+                {
+                    picb_Canvas.Image = (Image)picb_Popped.Image.Clone();
+                });
+            }
+            else
+            {
+                picb_Canvas.Image = (Image)picb_Popped.Image.Clone();
+            }
+        }
+        #endregion private void btn_Undo_Click()
     }
 }

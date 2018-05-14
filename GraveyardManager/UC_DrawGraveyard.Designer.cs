@@ -33,6 +33,7 @@
             this.btn_DrawRect = new System.Windows.Forms.Button();
             this.rtxt_Graveyard = new System.Windows.Forms.RichTextBox();
             this.lbl_Cursor = new System.Windows.Forms.Label();
+            this.btn_Undo = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picb_Canvas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -82,10 +83,22 @@
             this.lbl_Cursor.TabIndex = 4;
             this.lbl_Cursor.Text = "label1";
             // 
+            // btn_Undo
+            // 
+            this.btn_Undo.Enabled = false;
+            this.btn_Undo.Location = new System.Drawing.Point(659, 32);
+            this.btn_Undo.Name = "btn_Undo";
+            this.btn_Undo.Size = new System.Drawing.Size(138, 23);
+            this.btn_Undo.TabIndex = 5;
+            this.btn_Undo.Text = "Undo";
+            this.btn_Undo.UseVisualStyleBackColor = true;
+            this.btn_Undo.Click += new System.EventHandler(this.btn_Undo_Click);
+            // 
             // UC_DrawGraveyard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btn_Undo);
             this.Controls.Add(this.lbl_Cursor);
             this.Controls.Add(this.rtxt_Graveyard);
             this.Controls.Add(this.btn_DrawRect);
@@ -106,5 +119,6 @@
         private System.Windows.Forms.Button btn_DrawRect;
         private System.Windows.Forms.RichTextBox rtxt_Graveyard;
         private System.Windows.Forms.Label lbl_Cursor;
+        private System.Windows.Forms.Button btn_Undo;
     }
 }
