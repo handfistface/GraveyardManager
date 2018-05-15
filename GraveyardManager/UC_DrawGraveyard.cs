@@ -15,9 +15,10 @@ namespace GraveyardManager
     public partial class UC_DrawGraveyard : UserControl
     {
         #region UC_DrawGraveyard Variables
-        private int i_DrawState;        //indicates the drawing state of the 
+        private int i_DrawState;        //indicates the drawing state of the canvas
         private const int i_DSIdle = 0;     //Draw state that indicates an idle drawing state
         private const int i_DSSingleRect = 1;       //Draw state that indicates the user is drawing one rectangle at a time
+        private const int i_DSMultiRect = 2;        //draw that that indicates the user is dawing multiple rectangles at a time
         #endregion UC_DrawGraveyard Variables
         #region Graphics Variables
         private PictureBox picb_CommittedImage;     //The canvas after the user has made a change to it
@@ -45,6 +46,8 @@ namespace GraveyardManager
             picb_Canvas.Paint += Picb_Canvas_Paint;     //hook to a picture box paint event
             picb_Canvas.MouseMove += UC_DrawGraveyard_MouseMove;       //hook to a mouse moving event
             picb_Canvas.MouseClick += Picb_Canvas_MouseClick;
+            txt_MultX.TextChanged += Txt_MultX_TextChanged;
+            txt_MultY.TextChanged += Txt_MultY_TextChanged;
             System.Timers.Timer t_Init = new System.Timers.Timer();     //use a timer for the initialization because this thing is finicky
             t_Init.Elapsed += T_Init_Elapsed;
             t_Init.Interval = 500;
@@ -167,20 +170,22 @@ namespace GraveyardManager
         private void btn_DrawRect_Click(object sender, EventArgs e)
         {
             //if the draw state is sitting in an idle state...
-            if(i_DrawState == i_DSIdle)
+            if(i_DrawState != i_DSSingleRect || i_DrawState != i_DSIdle)
             {
                 //then set the flag to indicate that the user wants to start drawing plots
                 i_DrawState = i_DSSingleRect;
                 //now flip the button to indicate that the user has an option to stop drawing
                 btn_DrawRect.Text = "Stop Plotting";
+                btn_MultiplePlots.Text = "Draw Multiple Plots";     //make sure to update the multiple plots as well
             }
-            else if (i_DrawState == i_DSSingleRect)
+            else
             {
                 //then the flag indicates that the user is drawing a single plot
                 //this means that the user wants to stop drawing
                 i_DrawState = i_DSIdle;     //set the idle state
                 //now flip the button to indicate that the user sees they have an option to start drawing again
                 btn_DrawRect.Text = "Draw Plot";
+                btn_MultiplePlots.Text = "Draw Multiple Plots";      //make sure to update the multiple plots as well
                 picb_Canvas.Image = (Image)picb_CommittedImage.Image.Clone();
             }
         }
@@ -367,5 +372,150 @@ namespace GraveyardManager
             }
         }
         #endregion private void btn_Undo_Click()
+
+        #region private void btn_MultiplePlots_Click()
+        /// <summary>
+        /// This button will handle turning on drawing multiple plots at a time
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_MultiplePlots_Click(object sender, EventArgs e)
+        {
+            //if the draw state is sitting in an idle state...
+            if (i_DrawState != i_DSMultiRect || i_DrawState != i_DSIdle)
+            {
+                //then set the flag to indicate that the user wants to start drawing plots
+                i_DrawState = i_DSMultiRect;
+                //now flip the button to indicate that the user has an option to stop drawing
+                btn_MultiplePlots.Text = "Stop Plotting";
+                btn_DrawRect.Text = "Draw Plot";     //make sure to update the multiple plots as well
+            }
+            else
+            {
+                //then the flag indicates that the user is drawing a single plot
+                //this means that the user wants to stop drawing
+                i_DrawState = i_DSIdle;     //set the idle state
+                //now flip the button to indicate that the user sees they have an option to start drawing again
+                btn_DrawRect.Text = "Draw Plot";
+                btn_MultiplePlots.Text = "Draw Multiple Plots";      //make sure to update the multiple plots as well
+                picb_Canvas.Image = (Image)picb_CommittedImage.Image.Clone();
+            }
+        }
+        #endregion private void btn_MultiplePlots_Click()
+        #region private void txt_MultX_TextChanged()
+        /// <summary>
+        /// txt_MultX_TextChanged()
+        /// Handles cleaning the input on the X text box
+        /// Makes sure the input isn't too large and is an integer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Txt_MultX_TextChanged(object sender, EventArgs e)
+        {
+            //call the CleanseMultiDrawTextBox() method to cleanse the txt_MultX text box
+            CleanseMultiDrawTextBox(txt_MultX);
+        }
+        #endregion private void txt_MultX_TextChanged()
+        #region private void txt_MultY_TextChanged()
+        /// <summary>
+        /// txt_MultY_TextChanged()
+        /// Handles cleaning the input on the Y text box
+        /// Makes sure the input isn't too large and is an integer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Txt_MultY_TextChanged(object sender, EventArgs e)
+        {
+            //call the CleanseMultiDrawTextBox() method to cleanse the txt_MultY text box
+            CleanseMultiDrawTextBox(txt_MultY);
+        }
+        #endregion private void txt_MultY_TextChanged()
+        #region private void CleanseMultiDrawTextBox(TextBox txt)
+        /// <summary>
+        /// CleanseMultiDrawTextBox()
+        /// Cleans up the input on a text box 
+        /// </summary>
+        /// <param name="txt"></param>
+        private void CleanseMultiDrawTextBox(TextBox txt)
+        {
+            int i_Max = 10;     //the max value that the text box is allowed to have
+            if (txt.Text.Length < 1)
+                return;         //then there's nothing to parse
+            //since this is run every time all we have to do is look at the last digit of the text box
+            string s_NewText = "";       //the new text of the text box
+            //if the character is not a valid integer...
+            foreach (char c in txt.Text)
+            {
+                //bound the character 
+                if (!(c >= '0' && c <= '9'))
+                {
+                    //then the character is not in a valid range
+                    //prevent the character from being added onto the end of s_NewText
+                }
+                else
+                {
+                    //otherwise this is just a regular character
+                    s_NewText += c;
+                }
+            }
+            //does the new text == the old text?
+            if(s_NewText != txt.Text)
+            {
+                //then the new text does not equal the old text, it will need updated
+                //make sure to make the text box access thread safe
+                if (txt.InvokeRequired)
+                {
+                    //then this is a cross thread access, invoke a delegate
+                    txt.Invoke((MethodInvoker)delegate
+                    {
+                        txt.Text = s_NewText;       //update the text
+                        txt.SelectionStart = txt.Text.Length;
+                    });
+                }
+                else
+                {
+                    //then invoking is not required
+                    txt.Text = s_NewText;
+                    txt.SelectionStart = txt.Text.Length;
+                }
+                //now play a sound so the user knows they've done something wrong
+                using (SoundPlayer sp_Bonk = new SoundPlayer("./audio/Windows Ding.wav"))
+                {
+                    sp_Bonk.Play();
+                }
+            }
+            //now that any invalid characters are parsed out, any values that are too high must be parsed out and prevented
+            int i_Parsed;       //used to hold a parse result
+            if(int.TryParse(txt.Text, out i_Parsed))
+            {
+                //has the max value for the text box been exceeded
+                if(i_Parsed > i_Max)
+                {
+                    //then the max value for the text box has been exceeded
+                    //the value must be updated to max value, check for a cross thread access
+                    if(txt.InvokeRequired)
+                    {
+                        //then this is a cross thread access and invoke is required
+                        txt.Invoke((MethodInvoker)delegate
+                        {
+                            txt.Text = i_Max.ToString();       //set the text to the maximum value
+                            txt.SelectionStart = txt.Text.Length;
+                        });
+                    }
+                    else
+                    {
+                        //otherwise cross threading access is not required
+                        txt.Text = i_Max.ToString();        //set the text to the maximum value
+                        txt.SelectionStart = txt.Text.Length;
+                    }
+                    //now play a sound so the user knows they've done something wrong
+                    using (SoundPlayer sp_Bonk = new SoundPlayer("./audio/Windows Ding.wav"))
+                    {
+                        sp_Bonk.Play();
+                    }
+                }
+            }
+        }
+        #endregion private void CleanseMultiDrawTextBox(TextBox txt)
     }
 }

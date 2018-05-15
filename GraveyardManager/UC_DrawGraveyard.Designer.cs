@@ -34,6 +34,10 @@
             this.rtxt_Graveyard = new System.Windows.Forms.RichTextBox();
             this.lbl_Cursor = new System.Windows.Forms.Label();
             this.btn_Undo = new System.Windows.Forms.Button();
+            this.btn_MultiplePlots = new System.Windows.Forms.Button();
+            this.txt_MultX = new System.Windows.Forms.TextBox();
+            this.lbl_By = new System.Windows.Forms.Label();
+            this.txt_MultY = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.picb_Canvas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -94,10 +98,47 @@
             this.btn_Undo.UseVisualStyleBackColor = true;
             this.btn_Undo.Click += new System.EventHandler(this.btn_Undo_Click);
             // 
+            // btn_MultiplePlots
+            // 
+            this.btn_MultiplePlots.Location = new System.Drawing.Point(659, 61);
+            this.btn_MultiplePlots.Name = "btn_MultiplePlots";
+            this.btn_MultiplePlots.Size = new System.Drawing.Size(138, 23);
+            this.btn_MultiplePlots.TabIndex = 6;
+            this.btn_MultiplePlots.Text = "Draw Multiple Plots";
+            this.btn_MultiplePlots.UseVisualStyleBackColor = true;
+            this.btn_MultiplePlots.Click += new System.EventHandler(this.btn_MultiplePlots_Click);
+            // 
+            // txt_MultX
+            // 
+            this.txt_MultX.Location = new System.Drawing.Point(659, 90);
+            this.txt_MultX.Name = "txt_MultX";
+            this.txt_MultX.Size = new System.Drawing.Size(60, 20);
+            this.txt_MultX.TabIndex = 7;
+            // 
+            // lbl_By
+            // 
+            this.lbl_By.AutoSize = true;
+            this.lbl_By.Location = new System.Drawing.Point(721, 93);
+            this.lbl_By.Name = "lbl_By";
+            this.lbl_By.Size = new System.Drawing.Size(14, 13);
+            this.lbl_By.TabIndex = 8;
+            this.lbl_By.Text = "X";
+            // 
+            // txt_MultY
+            // 
+            this.txt_MultY.Location = new System.Drawing.Point(737, 90);
+            this.txt_MultY.Name = "txt_MultY";
+            this.txt_MultY.Size = new System.Drawing.Size(60, 20);
+            this.txt_MultY.TabIndex = 9;
+            // 
             // UC_DrawGraveyard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.txt_MultY);
+            this.Controls.Add(this.lbl_By);
+            this.Controls.Add(this.txt_MultX);
+            this.Controls.Add(this.btn_MultiplePlots);
             this.Controls.Add(this.btn_Undo);
             this.Controls.Add(this.lbl_Cursor);
             this.Controls.Add(this.rtxt_Graveyard);
@@ -120,5 +161,9 @@
         private System.Windows.Forms.RichTextBox rtxt_Graveyard;
         private System.Windows.Forms.Label lbl_Cursor;
         private System.Windows.Forms.Button btn_Undo;
+        private System.Windows.Forms.Button btn_MultiplePlots;
+        private System.Windows.Forms.TextBox txt_MultX;
+        private System.Windows.Forms.Label lbl_By;
+        private System.Windows.Forms.TextBox txt_MultY;
     }
 }
