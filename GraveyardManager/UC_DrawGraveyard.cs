@@ -24,8 +24,10 @@ namespace GraveyardManager
         private PictureBox picb_CommittedImage;     //The canvas after the user has made a change to it
         private Size sz_DefaultPlot = new Size(50, 25);     //default size of the plot
         private Stack<Point> pos_Rects;      //the list of rectangle origin points
-        private const int i_GCIterMax = 5;      //the maximum count i_GCIteration is allowed to reach before running GC.Collect()
+        private const int i_GCIterMax = 50;      //the maximum count i_GCIteration is allowed to reach before running GC.Collect()
         private int i_GCIteration;        //counter that how many iterations before GC.Collect is run (bitmaps are scary)
+        private const int i_Spacing = 2;      //pixel spacing between the plots
+        private const int i_Snapping = 10;     //number of pixels within a line to snap to
         #endregion Graphics Variables
         #region Undo Variables
         private int i_UndoMaxStack = 11;     //max amount of undo's before the stack dries up
@@ -125,6 +127,11 @@ namespace GraveyardManager
                     //then a ghost plot needs placed on the screen
                     DrawGhostPlot(p_MousePos);
                 }
+                else if (i_DrawState == i_DSMultiRect)
+                {
+                    //then multiple ghost plots need placed on the screen
+                    DrawMultiGhostPlot(p_MousePos);
+                }
             }
             //update the label indicating the mouse position
             if(lbl_Cursor.InvokeRequired)
@@ -172,21 +179,17 @@ namespace GraveyardManager
             //if the draw state is sitting in an idle state...
             if(i_DrawState != i_DSSingleRect || i_DrawState != i_DSIdle)
             {
+                StopDrawing();
                 //then set the flag to indicate that the user wants to start drawing plots
                 i_DrawState = i_DSSingleRect;
                 //now flip the button to indicate that the user has an option to stop drawing
-                btn_DrawRect.Text = "Stop Plotting";
-                btn_MultiplePlots.Text = "Draw Multiple Plots";     //make sure to update the multiple plots as well
+                btn_DrawRect.BackColor = Color.DarkGray;
             }
             else
             {
                 //then the flag indicates that the user is drawing a single plot
                 //this means that the user wants to stop drawing
-                i_DrawState = i_DSIdle;     //set the idle state
-                //now flip the button to indicate that the user sees they have an option to start drawing again
-                btn_DrawRect.Text = "Draw Plot";
-                btn_MultiplePlots.Text = "Draw Multiple Plots";      //make sure to update the multiple plots as well
-                picb_Canvas.Image = (Image)picb_CommittedImage.Image.Clone();
+                StopDrawing();
             }
         }
         #endregion private void btn_DrawRect_Click()
@@ -262,8 +265,6 @@ namespace GraveyardManager
         private Point SnapOrigin(Point p)
         {
             Point p_Mod = p;      //create a new point
-            int i_Spacing = 2;      //pixel spacing between the plots
-            int i_Snapping = 10;     //number of pixels within a line to snap to
             //loop through each plot in pol_Rects
             foreach (Point p_Origin in pos_Rects)
             {
@@ -384,21 +385,17 @@ namespace GraveyardManager
             //if the draw state is sitting in an idle state...
             if (i_DrawState != i_DSMultiRect || i_DrawState != i_DSIdle)
             {
+                StopDrawing();
                 //then set the flag to indicate that the user wants to start drawing plots
                 i_DrawState = i_DSMultiRect;
                 //now flip the button to indicate that the user has an option to stop drawing
-                btn_MultiplePlots.Text = "Stop Plotting";
-                btn_DrawRect.Text = "Draw Plot";     //make sure to update the multiple plots as well
+                btn_MultiplePlots.BackColor = Color.DarkGray;
             }
             else
             {
                 //then the flag indicates that the user is drawing a single plot
                 //this means that the user wants to stop drawing
-                i_DrawState = i_DSIdle;     //set the idle state
-                //now flip the button to indicate that the user sees they have an option to start drawing again
-                btn_DrawRect.Text = "Draw Plot";
-                btn_MultiplePlots.Text = "Draw Multiple Plots";      //make sure to update the multiple plots as well
-                picb_Canvas.Image = (Image)picb_CommittedImage.Image.Clone();
+                StopDrawing();
             }
         }
         #endregion private void btn_MultiplePlots_Click()
@@ -517,5 +514,73 @@ namespace GraveyardManager
             }
         }
         #endregion private void CleanseMultiDrawTextBox(TextBox txt)
+        #region private void DrawMultiGhostPlot(Point p_MousePos)
+        /// <summary>
+        /// DrawMultiGhostPlot()
+        /// This method builds on top of DrawGhostPlot() and draws a multi-dimension plot
+        /// If there are any interections this method will prevent the drawing
+        /// </summary>
+        /// <param name="p_MousePos">The origin point at which to draw the ghost plot</param>
+        private void DrawMultiGhostPlot(Point p_MousePos)
+        {
+            picb_Canvas.Image = (Image)picb_CommittedImage.Image.Clone();       //clone the committed image in memory so we're working off a fresh copy
+            Graphics g = Graphics.FromImage(picb_Canvas.Image);
+            Pen pen;        //used for colouring the rectangle that will be drawn as a ghost
+            int i_XDim = int.Parse(txt_MultX.Text);     //get the x dimension
+            int i_YDim = int.Parse(txt_MultY.Text);     //get the y dimension
+            //for each x dimension
+            for(int x = 0; x < i_XDim; x++)
+            {
+                //for each y dimension
+                for(int y = 0; y < i_YDim; y++)
+                {
+                    //calculate the origin of the rectangle
+                    Point p_Org = new Point();
+                    p_Org.X = p_MousePos.X + sz_DefaultPlot.Width * x + i_Spacing * x;
+                    p_Org.Y = p_MousePos.Y + sz_DefaultPlot.Height * y + i_Spacing * y;
+                    //if the drawing rectangle is inside another rectangle
+                    if (IsWithinPlot(p_Org))
+                        pen = Pens.Red;     //then there's an intersection with another plot, colour the ghost red
+                    else
+                        pen = Pens.Gray;        //otherwise the cursor doesn't intersect with another plot
+                    g.DrawRectangle(pen, new Rectangle(p_Org, sz_DefaultPlot));        //draw a rectangle at the current position
+                }
+            }
+            i_GCIteration++;        //increment the garbage collection counter
+            //if the garbage collection iteration counter indicates that the GC needs run...
+            if(i_GCIteration >= i_GCIterMax)
+            {
+                GC.Collect();
+                i_GCIteration = 0;
+            }
+        }
+        #endregion privaet void DrawMultiGhostPlot(Point p_MousePos)
+
+        #region private void btn_StopDrawing_Click()
+        /// <summary>
+        /// btn_StopDrawing_Click()
+        /// Stops the program from drawing
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_StopDrawing_Click(object sender, EventArgs e)
+        {
+            StopDrawing();
+        }
+        #endregion private void btn_StopDrawing_Click()
+        #region private void StopDrawing()
+        /// <summary>
+        /// StopDrawing()
+        /// This method stops the application from drawing, is used in multiple places
+        /// </summary>
+        private void StopDrawing()
+        {
+            i_DrawState = i_DSIdle;     //set the idle state
+            picb_Canvas.Image = (Image)picb_CommittedImage.Image.Clone();
+            //set the color for the buttons
+            btn_DrawRect.BackColor = Color.LightGray;
+            btn_MultiplePlots.BackColor = Color.LightGray;
+        }
+        #endregion private void StopDrawing()
     }
 }

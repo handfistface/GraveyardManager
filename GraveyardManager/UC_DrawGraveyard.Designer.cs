@@ -38,6 +38,7 @@
             this.txt_MultX = new System.Windows.Forms.TextBox();
             this.lbl_By = new System.Windows.Forms.Label();
             this.txt_MultY = new System.Windows.Forms.TextBox();
+            this.btn_StopDrawing = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picb_Canvas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,7 +63,7 @@
             // 
             // btn_DrawRect
             // 
-            this.btn_DrawRect.Location = new System.Drawing.Point(659, 3);
+            this.btn_DrawRect.Location = new System.Drawing.Point(659, 35);
             this.btn_DrawRect.Name = "btn_DrawRect";
             this.btn_DrawRect.Size = new System.Drawing.Size(138, 23);
             this.btn_DrawRect.TabIndex = 2;
@@ -90,7 +91,7 @@
             // btn_Undo
             // 
             this.btn_Undo.Enabled = false;
-            this.btn_Undo.Location = new System.Drawing.Point(659, 32);
+            this.btn_Undo.Location = new System.Drawing.Point(659, 64);
             this.btn_Undo.Name = "btn_Undo";
             this.btn_Undo.Size = new System.Drawing.Size(138, 23);
             this.btn_Undo.TabIndex = 5;
@@ -100,7 +101,7 @@
             // 
             // btn_MultiplePlots
             // 
-            this.btn_MultiplePlots.Location = new System.Drawing.Point(659, 61);
+            this.btn_MultiplePlots.Location = new System.Drawing.Point(659, 93);
             this.btn_MultiplePlots.Name = "btn_MultiplePlots";
             this.btn_MultiplePlots.Size = new System.Drawing.Size(138, 23);
             this.btn_MultiplePlots.TabIndex = 6;
@@ -110,15 +111,16 @@
             // 
             // txt_MultX
             // 
-            this.txt_MultX.Location = new System.Drawing.Point(659, 90);
+            this.txt_MultX.Location = new System.Drawing.Point(659, 122);
             this.txt_MultX.Name = "txt_MultX";
             this.txt_MultX.Size = new System.Drawing.Size(60, 20);
             this.txt_MultX.TabIndex = 7;
+            this.txt_MultX.Text = "2";
             // 
             // lbl_By
             // 
             this.lbl_By.AutoSize = true;
-            this.lbl_By.Location = new System.Drawing.Point(721, 93);
+            this.lbl_By.Location = new System.Drawing.Point(721, 125);
             this.lbl_By.Name = "lbl_By";
             this.lbl_By.Size = new System.Drawing.Size(14, 13);
             this.lbl_By.TabIndex = 8;
@@ -126,15 +128,27 @@
             // 
             // txt_MultY
             // 
-            this.txt_MultY.Location = new System.Drawing.Point(737, 90);
+            this.txt_MultY.Location = new System.Drawing.Point(737, 122);
             this.txt_MultY.Name = "txt_MultY";
             this.txt_MultY.Size = new System.Drawing.Size(60, 20);
             this.txt_MultY.TabIndex = 9;
+            this.txt_MultY.Text = "2";
+            // 
+            // btn_StopDrawing
+            // 
+            this.btn_StopDrawing.Location = new System.Drawing.Point(659, 6);
+            this.btn_StopDrawing.Name = "btn_StopDrawing";
+            this.btn_StopDrawing.Size = new System.Drawing.Size(138, 23);
+            this.btn_StopDrawing.TabIndex = 10;
+            this.btn_StopDrawing.Text = "Stop Drawing";
+            this.btn_StopDrawing.UseVisualStyleBackColor = true;
+            this.btn_StopDrawing.Click += new System.EventHandler(this.btn_StopDrawing_Click);
             // 
             // UC_DrawGraveyard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btn_StopDrawing);
             this.Controls.Add(this.txt_MultY);
             this.Controls.Add(this.lbl_By);
             this.Controls.Add(this.txt_MultX);
@@ -165,5 +179,6 @@
         private System.Windows.Forms.TextBox txt_MultX;
         private System.Windows.Forms.Label lbl_By;
         private System.Windows.Forms.TextBox txt_MultY;
+        private System.Windows.Forms.Button btn_StopDrawing;
     }
 }
