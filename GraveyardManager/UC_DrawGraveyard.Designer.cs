@@ -63,7 +63,7 @@
             // 
             // btn_DrawRect
             // 
-            this.btn_DrawRect.Location = new System.Drawing.Point(659, 35);
+            this.btn_DrawRect.Location = new System.Drawing.Point(659, 64);
             this.btn_DrawRect.Name = "btn_DrawRect";
             this.btn_DrawRect.Size = new System.Drawing.Size(138, 23);
             this.btn_DrawRect.TabIndex = 2;
@@ -91,7 +91,7 @@
             // btn_Undo
             // 
             this.btn_Undo.Enabled = false;
-            this.btn_Undo.Location = new System.Drawing.Point(659, 64);
+            this.btn_Undo.Location = new System.Drawing.Point(659, 35);
             this.btn_Undo.Name = "btn_Undo";
             this.btn_Undo.Size = new System.Drawing.Size(138, 23);
             this.btn_Undo.TabIndex = 5;
