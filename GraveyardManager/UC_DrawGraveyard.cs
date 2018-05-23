@@ -264,11 +264,11 @@ namespace GraveyardManager
             picb_Canvas.Image = (Image)picb_CommittedImage.Image.Clone();       //clone the committed image in memory so we're working off a fresh copy
             Graphics g = Graphics.FromImage(picb_Canvas.Image);     //create a graphics that will draw on the canvas image
             Pen pen;       //used for colouring the rectangle that will be drawn as a ghost
+            p_MousePos = SnapOrigin(p_MousePos);
             if (IsWithinPlot(p_MousePos))
                 pen = Pens.Red;     //the color needs to be red if we're intersecting a grave
             else
                 pen = Pens.Gray;        //otherwise the cursor doesn't intersect another plot
-            p_MousePos = SnapOrigin(p_MousePos);
             g.DrawRectangle(pen, new Rectangle(p_MousePos, sz_DefaultPlot));     //draw a rectangle at the current position
             i_GCIteration++;        //increment the garbage collection counter
             if(i_GCIteration >= i_GCIterMax)
@@ -287,6 +287,7 @@ namespace GraveyardManager
         /// <param name="p_MousePos"></param>
         private void CommitPlot(Point p_MousePos)
         {
+            p_MousePos = SnapOrigin(p_MousePos);
             //don't save the plot position onto the canvas if we're intersecting another plot
             if (IsWithinPlot(p_MousePos))
             {
@@ -303,7 +304,6 @@ namespace GraveyardManager
             picb_Stack.Image = (Image)picb_CommittedImage.Image.Clone();        //clone the image onto the new stack entry
             spicb_Undo.Push(picb_Stack);        ///push a new entry onto the stack
             Graphics g = Graphics.FromImage(picb_CommittedImage.Image);     //get the graphics from the committed image because now this image needs modified
-            p_MousePos = SnapOrigin(p_MousePos);
             g.DrawRectangle(Pens.Black, new Rectangle(p_MousePos, sz_DefaultPlot));     //draw a rectangle on the point we're looking at
             picb_Canvas.Image = (Image)picb_CommittedImage.Image.Clone();       //clone that sucker onto the canvas that's being displayed
             post_Rects.Push(p_MousePos);      //add the point to the list of rectangle points
@@ -314,10 +314,12 @@ namespace GraveyardManager
                 btn_Undo.Enabled = true;        //then the button was disabled, re-enable it
         }
         #endregion private void CommitPlot(Point p_MousePos)
+
         #region private Point SnapOrigin(Point p)
         /// <summary>
         /// SnapOrigin()
         /// This method will take a an unmodified point and figure out a new point to place the origin at
+        /// Bases the new point on a previously existing plot
         /// </summary>
         /// <param name="p">The unmodified point of the mouse pointer</param>
         /// <returns>A modified point of where to snap the rectangle, if the point is not near another plot then this will return the point argument</returns>
@@ -371,6 +373,64 @@ namespace GraveyardManager
             return p_Mod;       //return the new modified origin point
         }
         #endregion private Point SnapOrigin(Point p)
+        #region private Point SnapOrigin(Point p, Size sz_NewPlots)
+        /// <summary>
+        /// SnapOrigin()
+        /// This method will take a an unmodified point and figure out a new point to place the origin at
+        /// Bases the new point on an existing plot
+        /// </summary>
+        /// <param name="p">The unmodified point of the mouse pointer</param>
+        /// <returns>A modified point of where to snap the rectangle, if the point is not near another plot then this will return the point argument</returns>
+        private Point SnapOrigin(Point p, Size sz_NewPlots)
+        {
+            Point p_Mod = p;      //create a new point
+            //loop through each plot in pol_Rects
+            foreach (Point p_Origin in post_Rects)
+            {
+                //are we near the top left side of the rectangle?
+                if ((p.Y >= p_Origin.Y - i_Snapping) &&
+                    (p.Y <= p_Origin.Y + sz_DefaultPlot.Height + i_Snapping) &&
+                    (p.X >= p_Origin.X - i_Snapping) &&
+                    (p.X <= p_Origin.X + i_Snapping)
+                  )
+                {
+                    p_Mod = new Point(p_Origin.X - sz_NewPlots.Width - i_Spacing, p_Origin.Y);
+                    break;
+                }
+                //are we near the right side of the rectangle?
+                if ((p.Y >= p_Origin.Y - i_Snapping) &&
+                    (p.Y <= p_Origin.Y + sz_DefaultPlot.Height + i_Snapping) &&
+                    (p.X >= p_Origin.X + sz_DefaultPlot.Width - i_Snapping) &&
+                    (p.X <= p_Origin.X + sz_DefaultPlot.Width + i_Snapping)
+                  )
+                {
+                    p_Mod = new Point(p_Origin.X + sz_DefaultPlot.Width + i_Spacing, p_Origin.Y);
+                    break;
+                }
+                //are we near the top side of the rectangle?
+                if ((p.Y >= p_Origin.Y - i_Snapping) &&
+                    (p.Y <= p_Origin.Y + i_Snapping) &&
+                    (p.X >= p_Origin.X - i_Snapping) &&
+                    (p.X <= p_Origin.X + sz_DefaultPlot.Width + i_Snapping)
+                  )
+                {
+                    p_Mod = new Point(p_Origin.X, p_Origin.Y - sz_NewPlots.Height - i_Spacing);
+                    break;
+                }
+                //are we near the bottom side of the rectangle? 
+                if ((p.Y >= p_Origin.Y + sz_DefaultPlot.Height - i_Snapping) &&
+                    (p.Y <= p_Origin.Y + sz_DefaultPlot.Height + i_Snapping) &&
+                    (p.X >= p_Origin.X - i_Snapping) &&
+                    (p.X <= p_Origin.X + sz_DefaultPlot.Width + i_Snapping)
+                  )
+                {
+                    p_Mod = new Point(p_Origin.X, p_Origin.Y + sz_DefaultPlot.Height + i_Spacing);
+                    break;
+                }
+            }
+            return p_Mod;       //return the new modified origin point
+        }
+        #endregion private Point SnapOrigin(Point p, Size sz_NewPlot)
 
         #region private bool IsWithinPlot(Point p)
         /// <summary>
@@ -647,8 +707,9 @@ namespace GraveyardManager
             int i_XEndDim = p_MousePos.X + i_XDim * sz_DefaultPlot.Width + i_XDim * i_Spacing;       //calculate the end point for the x dimension
             int i_YEndDim = p_MousePos.Y + i_YDim * sz_DefaultPlot.Height + i_YDim * i_Spacing;      //calculate the end point for the y dimension
             Size sz_FullMultiDimSize = new Size(i_XEndDim - p_MousePos.X, i_YEndDim - p_MousePos.Y);      //calculate the size of the full plot
+            Point p_Mod = SnapOrigin(p_MousePos, sz_FullMultiDimSize);
             //now make sure that the drawing point does not have any plots that exist within its boundaries, if it does then highlight all of the boxes red
-            if (IsWithinPlot(p_MousePos, sz_FullMultiDimSize))
+            if (IsWithinPlot(p_Mod, sz_FullMultiDimSize))
                 pen = Pens.Red;
             else
                 pen = Pens.Gray;
@@ -660,8 +721,8 @@ namespace GraveyardManager
                 {
                     //calculate the origin of the rectangle
                     Point p_Org = new Point();
-                    p_Org.X = p_MousePos.X + sz_DefaultPlot.Width * x + i_Spacing * x;
-                    p_Org.Y = p_MousePos.Y + sz_DefaultPlot.Height * y + i_Spacing * y;
+                    p_Org.X = p_Mod.X + sz_DefaultPlot.Width * x + i_Spacing * x;
+                    p_Org.Y = p_Mod.Y + sz_DefaultPlot.Height * y + i_Spacing * y;
                     g.DrawRectangle(pen, new Rectangle(p_Org, sz_DefaultPlot));        //draw a rectangle at the current position
                 }
             }
@@ -690,8 +751,9 @@ namespace GraveyardManager
             int i_XEndDim = p.X + i_XDim * sz_DefaultPlot.Width + i_XDim * i_Spacing;       //calculate the end point for the x dimension
             int i_YEndDim = p.Y + i_YDim * sz_DefaultPlot.Height + i_YDim * i_Spacing;      //calculate the end point for the y dimension
             Size sz_FullMultiDimSize = new Size(i_XEndDim - p.X, i_YEndDim - p.Y);      //calculate the size of the full plot
+            Point p_Mod = SnapOrigin(p, sz_FullMultiDimSize);
             //now make sure that the drawing point does not have any plots that exist within its boundaries
-            bool b_InsideAnotherPlot = IsWithinPlot(p, sz_FullMultiDimSize);
+            bool b_InsideAnotherPlot = IsWithinPlot(p_Mod, sz_FullMultiDimSize);
             if (b_InsideAnotherPlot)
             {
                 //then the plot is within another plot, prevent the user from drawing here and play a windows bing
@@ -714,8 +776,8 @@ namespace GraveyardManager
                 {
                     //calculate the origin of the rectangle
                     Point p_Org = new Point();
-                    p_Org.X = p.X + sz_DefaultPlot.Width * x + i_Spacing * x;
-                    p_Org.Y = p.Y + sz_DefaultPlot.Height * y + i_Spacing * y;
+                    p_Org.X = p_Mod.X + sz_DefaultPlot.Width * x + i_Spacing * x;
+                    p_Org.Y = p_Mod.Y + sz_DefaultPlot.Height * y + i_Spacing * y;
                     Rectangle rect_NewPlot = new Rectangle(p_Org, sz_DefaultPlot);
                     post_Rects.Push(p_Org);
                     g.DrawRectangle(Pens.Black, rect_NewPlot);        //draw a rectangle at the current position
