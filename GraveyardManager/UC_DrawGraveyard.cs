@@ -308,7 +308,6 @@ namespace GraveyardManager
             picb_Canvas.Image = (Image)picb_CommittedImage.Image.Clone();       //clone that sucker onto the canvas that's being displayed
             post_Rects.Push(p_MousePos);      //add the point to the list of rectangle points
             ist_PlotsAdded.Push(1);     //there has only been 1 added plot
-            Util.rtxtWriteLine("New plot: (" + p_MousePos.X + ", " + p_MousePos.Y + ")");
             //has the btn_Undo button been disabled?
             if (!btn_Undo.Enabled)
                 btn_Undo.Enabled = true;        //then the button was disabled, re-enable it
@@ -704,8 +703,8 @@ namespace GraveyardManager
             int i_XDim = int.Parse(txt_MultX.Text);     //get the x dimension
             int i_YDim = int.Parse(txt_MultY.Text);     //get the y dimension
             //calculate the end drawing point for the x and y dimensions
-            int i_XEndDim = p_MousePos.X + i_XDim * sz_DefaultPlot.Width + i_XDim * i_Spacing;       //calculate the end point for the x dimension
-            int i_YEndDim = p_MousePos.Y + i_YDim * sz_DefaultPlot.Height + i_YDim * i_Spacing;      //calculate the end point for the y dimension
+            int i_XEndDim = p_MousePos.X + i_XDim * sz_DefaultPlot.Width + i_XDim * i_Spacing - i_Spacing;       //calculate the end point for the x dimension
+            int i_YEndDim = p_MousePos.Y + i_YDim * sz_DefaultPlot.Height + i_YDim * i_Spacing - i_Spacing;      //calculate the end point for the y dimension
             Size sz_FullMultiDimSize = new Size(i_XEndDim - p_MousePos.X, i_YEndDim - p_MousePos.Y);      //calculate the size of the full plot
             Point p_Mod = SnapOrigin(p_MousePos, sz_FullMultiDimSize);
             //now make sure that the drawing point does not have any plots that exist within its boundaries, if it does then highlight all of the boxes red
@@ -748,8 +747,8 @@ namespace GraveyardManager
             int i_XDim = int.Parse(txt_MultX.Text);     //get the x dimension
             int i_YDim = int.Parse(txt_MultY.Text);     //get the y dimension
             //calculate the end drawing point for the x and y dimensions
-            int i_XEndDim = p.X + i_XDim * sz_DefaultPlot.Width + i_XDim * i_Spacing;       //calculate the end point for the x dimension
-            int i_YEndDim = p.Y + i_YDim * sz_DefaultPlot.Height + i_YDim * i_Spacing;      //calculate the end point for the y dimension
+            int i_XEndDim = p.X + i_XDim * sz_DefaultPlot.Width + i_XDim * i_Spacing - i_Spacing;       //calculate the end point for the x dimension
+            int i_YEndDim = p.Y + i_YDim * sz_DefaultPlot.Height + i_YDim * i_Spacing - i_Spacing;      //calculate the end point for the y dimension
             Size sz_FullMultiDimSize = new Size(i_XEndDim - p.X, i_YEndDim - p.Y);      //calculate the size of the full plot
             Point p_Mod = SnapOrigin(p, sz_FullMultiDimSize);
             //now make sure that the drawing point does not have any plots that exist within its boundaries
@@ -817,5 +816,10 @@ namespace GraveyardManager
             btn_MultiplePlots.BackColor = Color.LightGray;
         }
         #endregion private void StopDrawing()
+
+        private void btn_Resize_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

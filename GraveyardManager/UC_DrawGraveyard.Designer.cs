@@ -39,7 +39,13 @@
             this.lbl_By = new System.Windows.Forms.Label();
             this.txt_MultY = new System.Windows.Forms.TextBox();
             this.btn_StopDrawing = new System.Windows.Forms.Button();
+            this.tbc_MainControl = new System.Windows.Forms.TabControl();
+            this.tbp_Drawing = new System.Windows.Forms.TabPage();
+            this.tbp_Graves = new System.Windows.Forms.TabPage();
+            this.btn_Resize = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picb_Canvas)).BeginInit();
+            this.tbc_MainControl.SuspendLayout();
+            this.tbp_Drawing.SuspendLayout();
             this.SuspendLayout();
             // 
             // picb_Canvas
@@ -63,9 +69,9 @@
             // 
             // btn_DrawRect
             // 
-            this.btn_DrawRect.Location = new System.Drawing.Point(659, 64);
+            this.btn_DrawRect.Location = new System.Drawing.Point(6, 64);
             this.btn_DrawRect.Name = "btn_DrawRect";
-            this.btn_DrawRect.Size = new System.Drawing.Size(138, 23);
+            this.btn_DrawRect.Size = new System.Drawing.Size(141, 23);
             this.btn_DrawRect.TabIndex = 2;
             this.btn_DrawRect.Text = "Draw Plot";
             this.btn_DrawRect.UseVisualStyleBackColor = true;
@@ -73,9 +79,9 @@
             // 
             // rtxt_Graveyard
             // 
-            this.rtxt_Graveyard.Location = new System.Drawing.Point(659, 248);
+            this.rtxt_Graveyard.Location = new System.Drawing.Point(659, 391);
             this.rtxt_Graveyard.Name = "rtxt_Graveyard";
-            this.rtxt_Graveyard.Size = new System.Drawing.Size(138, 316);
+            this.rtxt_Graveyard.Size = new System.Drawing.Size(138, 173);
             this.rtxt_Graveyard.TabIndex = 3;
             this.rtxt_Graveyard.Text = "";
             // 
@@ -91,9 +97,9 @@
             // btn_Undo
             // 
             this.btn_Undo.Enabled = false;
-            this.btn_Undo.Location = new System.Drawing.Point(659, 35);
+            this.btn_Undo.Location = new System.Drawing.Point(6, 35);
             this.btn_Undo.Name = "btn_Undo";
-            this.btn_Undo.Size = new System.Drawing.Size(138, 23);
+            this.btn_Undo.Size = new System.Drawing.Size(141, 23);
             this.btn_Undo.TabIndex = 5;
             this.btn_Undo.Text = "Undo";
             this.btn_Undo.UseVisualStyleBackColor = true;
@@ -101,9 +107,9 @@
             // 
             // btn_MultiplePlots
             // 
-            this.btn_MultiplePlots.Location = new System.Drawing.Point(659, 93);
+            this.btn_MultiplePlots.Location = new System.Drawing.Point(6, 93);
             this.btn_MultiplePlots.Name = "btn_MultiplePlots";
-            this.btn_MultiplePlots.Size = new System.Drawing.Size(138, 23);
+            this.btn_MultiplePlots.Size = new System.Drawing.Size(141, 23);
             this.btn_MultiplePlots.TabIndex = 6;
             this.btn_MultiplePlots.Text = "Draw Multiple Plots";
             this.btn_MultiplePlots.UseVisualStyleBackColor = true;
@@ -111,7 +117,7 @@
             // 
             // txt_MultX
             // 
-            this.txt_MultX.Location = new System.Drawing.Point(659, 122);
+            this.txt_MultX.Location = new System.Drawing.Point(6, 122);
             this.txt_MultX.Name = "txt_MultX";
             this.txt_MultX.Size = new System.Drawing.Size(60, 20);
             this.txt_MultX.TabIndex = 7;
@@ -120,7 +126,7 @@
             // lbl_By
             // 
             this.lbl_By.AutoSize = true;
-            this.lbl_By.Location = new System.Drawing.Point(721, 125);
+            this.lbl_By.Location = new System.Drawing.Point(70, 125);
             this.lbl_By.Name = "lbl_By";
             this.lbl_By.Size = new System.Drawing.Size(14, 13);
             this.lbl_By.TabIndex = 8;
@@ -128,7 +134,7 @@
             // 
             // txt_MultY
             // 
-            this.txt_MultY.Location = new System.Drawing.Point(737, 122);
+            this.txt_MultY.Location = new System.Drawing.Point(87, 122);
             this.txt_MultY.Name = "txt_MultY";
             this.txt_MultY.Size = new System.Drawing.Size(60, 20);
             this.txt_MultY.TabIndex = 9;
@@ -136,32 +142,77 @@
             // 
             // btn_StopDrawing
             // 
-            this.btn_StopDrawing.Location = new System.Drawing.Point(659, 6);
+            this.btn_StopDrawing.Location = new System.Drawing.Point(6, 6);
             this.btn_StopDrawing.Name = "btn_StopDrawing";
-            this.btn_StopDrawing.Size = new System.Drawing.Size(138, 23);
+            this.btn_StopDrawing.Size = new System.Drawing.Size(141, 23);
             this.btn_StopDrawing.TabIndex = 10;
             this.btn_StopDrawing.Text = "Stop Drawing";
             this.btn_StopDrawing.UseVisualStyleBackColor = true;
             this.btn_StopDrawing.Click += new System.EventHandler(this.btn_StopDrawing_Click);
             // 
+            // tbc_MainControl
+            // 
+            this.tbc_MainControl.Controls.Add(this.tbp_Drawing);
+            this.tbc_MainControl.Controls.Add(this.tbp_Graves);
+            this.tbc_MainControl.Location = new System.Drawing.Point(676, 3);
+            this.tbc_MainControl.Name = "tbc_MainControl";
+            this.tbc_MainControl.SelectedIndex = 0;
+            this.tbc_MainControl.Size = new System.Drawing.Size(161, 204);
+            this.tbc_MainControl.TabIndex = 11;
+            // 
+            // tbp_Drawing
+            // 
+            this.tbp_Drawing.Controls.Add(this.btn_Resize);
+            this.tbp_Drawing.Controls.Add(this.btn_StopDrawing);
+            this.tbp_Drawing.Controls.Add(this.txt_MultY);
+            this.tbp_Drawing.Controls.Add(this.btn_Undo);
+            this.tbp_Drawing.Controls.Add(this.lbl_By);
+            this.tbp_Drawing.Controls.Add(this.btn_DrawRect);
+            this.tbp_Drawing.Controls.Add(this.txt_MultX);
+            this.tbp_Drawing.Controls.Add(this.btn_MultiplePlots);
+            this.tbp_Drawing.Location = new System.Drawing.Point(4, 22);
+            this.tbp_Drawing.Name = "tbp_Drawing";
+            this.tbp_Drawing.Padding = new System.Windows.Forms.Padding(3);
+            this.tbp_Drawing.Size = new System.Drawing.Size(153, 178);
+            this.tbp_Drawing.TabIndex = 0;
+            this.tbp_Drawing.Text = "Drawing";
+            this.tbp_Drawing.UseVisualStyleBackColor = true;
+            // 
+            // tbp_Graves
+            // 
+            this.tbp_Graves.Location = new System.Drawing.Point(4, 22);
+            this.tbp_Graves.Name = "tbp_Graves";
+            this.tbp_Graves.Padding = new System.Windows.Forms.Padding(3);
+            this.tbp_Graves.Size = new System.Drawing.Size(153, 152);
+            this.tbp_Graves.TabIndex = 1;
+            this.tbp_Graves.Text = "Graves";
+            this.tbp_Graves.UseVisualStyleBackColor = true;
+            // 
+            // btn_Resize
+            // 
+            this.btn_Resize.Location = new System.Drawing.Point(6, 149);
+            this.btn_Resize.Name = "btn_Resize";
+            this.btn_Resize.Size = new System.Drawing.Size(141, 23);
+            this.btn_Resize.TabIndex = 11;
+            this.btn_Resize.Text = "Resize Canvas";
+            this.btn_Resize.UseVisualStyleBackColor = true;
+            this.btn_Resize.Click += new System.EventHandler(this.btn_Resize_Click);
+            // 
             // UC_DrawGraveyard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.btn_StopDrawing);
-            this.Controls.Add(this.txt_MultY);
-            this.Controls.Add(this.lbl_By);
-            this.Controls.Add(this.txt_MultX);
-            this.Controls.Add(this.btn_MultiplePlots);
-            this.Controls.Add(this.btn_Undo);
+            this.Controls.Add(this.tbc_MainControl);
             this.Controls.Add(this.lbl_Cursor);
             this.Controls.Add(this.rtxt_Graveyard);
-            this.Controls.Add(this.btn_DrawRect);
             this.Controls.Add(this.btn_Tester);
             this.Controls.Add(this.picb_Canvas);
             this.Name = "UC_DrawGraveyard";
-            this.Size = new System.Drawing.Size(800, 800);
+            this.Size = new System.Drawing.Size(840, 800);
             ((System.ComponentModel.ISupportInitialize)(this.picb_Canvas)).EndInit();
+            this.tbc_MainControl.ResumeLayout(false);
+            this.tbp_Drawing.ResumeLayout(false);
+            this.tbp_Drawing.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -180,5 +231,9 @@
         private System.Windows.Forms.Label lbl_By;
         private System.Windows.Forms.TextBox txt_MultY;
         private System.Windows.Forms.Button btn_StopDrawing;
+        private System.Windows.Forms.TabControl tbc_MainControl;
+        private System.Windows.Forms.TabPage tbp_Drawing;
+        private System.Windows.Forms.TabPage tbp_Graves;
+        private System.Windows.Forms.Button btn_Resize;
     }
 }
