@@ -19,6 +19,7 @@ namespace GraveyardManager
         private const int i_DSIdle = 0;     //Draw state that indicates an idle drawing state
         private const int i_DSSingleRect = 1;       //Draw state that indicates the user is drawing one rectangle at a time
         private const int i_DSMultiRect = 2;        //draw that that indicates the user is dawing multiple rectangles at a time
+        private ResizeWindow rw = null;     //used to resize the canvas
         #endregion UC_DrawGraveyard Variables
         #region Graphics Variables
         private PictureBox picb_CommittedImage;     //The canvas after the user has made a change to it
@@ -817,9 +818,43 @@ namespace GraveyardManager
         }
         #endregion private void StopDrawing()
 
+        #region private void btn_Resize_Click(object sender, EventArgs e)
+        /// <summary>
+        /// btn_Resize_Click()
+        /// This method gets called whenever the user clicks the resize button
+        /// The canvas will need to be resized
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_Resize_Click(object sender, EventArgs e)
         {
-
+            //is the ResizeWindow initialized already?
+            if(rw == null)
+            {
+                //then the resize window needs initialized
+                rw = new ResizeWindow(picb_Canvas.Size);        //setup a new window
+                rw.FormClosing += Rw_FormClosing;
+                rw.Show();
+            }
+            else
+            {
+                //then just focus the resize window
+                rw.Show();
+            }
         }
+        #endregion private void btn_Resize_Click(object sender, EventArgs e)
+        #region private void Rw_FormClosing(object sender, FormClosingEventArgs e)
+        /// <summary>
+        /// Rw_FormClosing()
+        /// This event handler will set the canvas size based on the public variable in the class' rw variable
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Rw_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            picb_Canvas.Size = rw.sz_Resized;       //get the resize size before closing the window
+            rw = null;
+        }
+        #endregion private void Rw_FormClosing(object sender, FormClosingEventArgs e)
     }
 }

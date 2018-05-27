@@ -11,3 +11,4 @@ D:\App_Dev\GraveyardManager\GraveyardManager\obj\Debug\GraveyardManager.pdb
 D:\App_Dev\GraveyardManager\GraveyardManager\obj\Debug\GraveyardManager.UC_DrawGraveyard.resources
 D:\App_Dev\GraveyardManager\GraveyardManager\obj\Debug\GraveyardManager.UC_About.resources
 D:\App_Dev\GraveyardManager\GraveyardManager\bin\Debug\audio\Windows Ding.wav
+D:\App_Dev\GraveyardManager\GraveyardManager\obj\Debug\GraveyardManager.ResizeWindow.resources
