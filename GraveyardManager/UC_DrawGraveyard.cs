@@ -31,7 +31,6 @@ namespace GraveyardManager
         private const int i_Snapping = 10;     //number of pixels within a line to snap to
         #endregion Graphics Variables
         #region Undo Variables
-        private int i_UndoMaxStack = 11;     //max amount of undo's before the stack dries up
         private Stack<PictureBox> spicb_Undo;       //a stack of picture boxes used to revert the canvas (post_Rects needs 
         private Stack<int> ist_PlotsAdded;      //how many plots are added at a time?
         #endregion Undo Variables
@@ -59,6 +58,10 @@ namespace GraveyardManager
             t_Init.Interval = 500;
             t_Init.AutoReset = false;       //make sure this timer doesn't reset itself automatically
             t_Init.Start();
+            Size sz = new Size(picb_Canvas.Size.Width, picb_Canvas.Size.Height);
+            sz.Height -= 10;
+            sz.Width -= 10;
+            pnl_Canvas.Size = sz;     //set the panel size to the canvas size
         }
 
         private void T_Init_Elapsed(object sender, ElapsedEventArgs e)

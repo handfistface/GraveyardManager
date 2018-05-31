@@ -21,25 +21,30 @@ namespace GraveyardManager
             //the list view group identifies an entry
             string[] sa_Item = { "John", "David", "Kirschner", "C1", "9", "n/a" };
             lstv_Patrons.Items.Add(new ListViewItem(sa_Item));
-            if(!GlobalVariables.b_EnableDebugging)
-            {
-                //if debugging is disabled...
-                pnl_Tester.Enabled = false;
-                pnl_Tester.Visible = false;
-            }
+            this.Resize += UC_Display_Resize;
         }
         #endregion public UC_Display()
 
-        #region private void btn_LoadCemetery_Click()
+        #region private void UC_Display_Resize(object sender, EventArgs e)
         /// <summary>
-        /// btn_LoadCemetery_Click()
+        /// Uc_Display_Resize()
+        /// This method gets called whenever the user control resizes
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btn_LoadCemetery_Click(object sender, EventArgs e)
+        private void UC_Display_Resize(object sender, EventArgs e)
         {
-            
+            //resize the lstv_Patrons item
+            int i_Padding = 5;      //5 pixels padding on the bottom & top of the item
+            lstv_Patrons.Size = new Size(lstv_Patrons.Width, this.Height - i_Padding * 2);      //adjust the size (padding * 2 because I gotta pad the top and the bottom
         }
-        #endregion private void btn_LoadCemetery_Click()
+        #endregion private void UC_Display_Resize(object sender, EventArgs e)
+
+        #region private void btn_Add_Click(object sender, EventArgs e)
+        private void btn_Add_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion private void btn_Add_Click(object sender, EventArgs e)
     }
 }

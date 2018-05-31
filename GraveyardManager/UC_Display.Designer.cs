@@ -29,10 +29,6 @@
         private void InitializeComponent()
         {
             this.lstv_Patrons = new System.Windows.Forms.ListView();
-            this.pnl_Tester = new System.Windows.Forms.Panel();
-            this.btn_LoadCemetery = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
             this.col_FirstName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.col_MiddleName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.col_LastName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -40,8 +36,9 @@
             this.col_GraveId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.col_DateOfDeath = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.col_Notes = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.pnl_Tester.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.pnl_Buttons = new System.Windows.Forms.Panel();
+            this.btn_Add = new System.Windows.Forms.Button();
+            this.pnl_Buttons.SuspendLayout();
             this.SuspendLayout();
             // 
             // lstv_Patrons
@@ -58,48 +55,11 @@
             this.lstv_Patrons.Location = new System.Drawing.Point(3, 3);
             this.lstv_Patrons.MultiSelect = false;
             this.lstv_Patrons.Name = "lstv_Patrons";
-            this.lstv_Patrons.Size = new System.Drawing.Size(750, 660);
+            this.lstv_Patrons.Size = new System.Drawing.Size(795, 660);
             this.lstv_Patrons.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lstv_Patrons.TabIndex = 0;
             this.lstv_Patrons.UseCompatibleStateImageBehavior = false;
             this.lstv_Patrons.View = System.Windows.Forms.View.Details;
-            // 
-            // pnl_Tester
-            // 
-            this.pnl_Tester.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.pnl_Tester.Controls.Add(this.btn_LoadCemetery);
-            this.pnl_Tester.Location = new System.Drawing.Point(759, 522);
-            this.pnl_Tester.Name = "pnl_Tester";
-            this.pnl_Tester.Size = new System.Drawing.Size(200, 141);
-            this.pnl_Tester.TabIndex = 1;
-            // 
-            // btn_LoadCemetery
-            // 
-            this.btn_LoadCemetery.Location = new System.Drawing.Point(3, 3);
-            this.btn_LoadCemetery.Name = "btn_LoadCemetery";
-            this.btn_LoadCemetery.Size = new System.Drawing.Size(194, 41);
-            this.btn_LoadCemetery.TabIndex = 0;
-            this.btn_LoadCemetery.Text = "Load Cemetery";
-            this.btn_LoadCemetery.UseVisualStyleBackColor = true;
-            this.btn_LoadCemetery.Click += new System.EventHandler(this.btn_LoadCemetery_Click);
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.panel2.Controls.Add(this.button2);
-            this.panel2.Location = new System.Drawing.Point(759, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(200, 116);
-            this.panel2.TabIndex = 2;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(3, 3);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(194, 39);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
             // 
             // col_FirstName
             // 
@@ -135,17 +95,37 @@
             this.col_Notes.Text = "Notes";
             this.col_Notes.Width = 100;
             // 
+            // pnl_Buttons
+            // 
+            this.pnl_Buttons.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnl_Buttons.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pnl_Buttons.Controls.Add(this.btn_Add);
+            this.pnl_Buttons.Location = new System.Drawing.Point(804, 3);
+            this.pnl_Buttons.Name = "pnl_Buttons";
+            this.pnl_Buttons.Size = new System.Drawing.Size(155, 116);
+            this.pnl_Buttons.TabIndex = 2;
+            // 
+            // btn_Add
+            // 
+            this.btn_Add.Location = new System.Drawing.Point(3, 3);
+            this.btn_Add.Name = "btn_Add";
+            this.btn_Add.Size = new System.Drawing.Size(149, 23);
+            this.btn_Add.TabIndex = 0;
+            this.btn_Add.Text = "Add";
+            this.btn_Add.UseVisualStyleBackColor = true;
+            this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
+            // 
             // UC_Display
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.pnl_Tester);
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Controls.Add(this.pnl_Buttons);
             this.Controls.Add(this.lstv_Patrons);
             this.Name = "UC_Display";
             this.Size = new System.Drawing.Size(964, 666);
-            this.pnl_Tester.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
+            this.pnl_Buttons.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -153,10 +133,7 @@
         #endregion
 
         private System.Windows.Forms.ListView lstv_Patrons;
-        private System.Windows.Forms.Panel pnl_Tester;
-        private System.Windows.Forms.Button btn_LoadCemetery;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Panel pnl_Buttons;
         private System.Windows.Forms.ColumnHeader col_FirstName;
         private System.Windows.Forms.ColumnHeader col_MiddleName;
         private System.Windows.Forms.ColumnHeader col_LastName;
@@ -164,5 +141,6 @@
         private System.Windows.Forms.ColumnHeader col_GraveId;
         private System.Windows.Forms.ColumnHeader col_DateOfDeath;
         private System.Windows.Forms.ColumnHeader col_Notes;
+        private System.Windows.Forms.Button btn_Add;
     }
 }

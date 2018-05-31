@@ -173,7 +173,7 @@ namespace GraveyardManager
         private void btn_Resize_Click(object sender, EventArgs e)
         {
             //create a new size based on the text inside height and width
-            sz_Resized = new Size(int.Parse(txt_HeightPix.Text), int.Parse(txt_WidthPix.Text));
+            sz_Resized = new Size(int.Parse(txt_WidthPix.Text), int.Parse(txt_HeightPix.Text));
             this.Close();       //close the window
         }
         #endregion private void btn_Resize_Click(object sender, EventArgs e)

@@ -41,11 +41,13 @@
             this.btn_StopDrawing = new System.Windows.Forms.Button();
             this.tbc_MainControl = new System.Windows.Forms.TabControl();
             this.tbp_Drawing = new System.Windows.Forms.TabPage();
-            this.tbp_Graves = new System.Windows.Forms.TabPage();
             this.btn_Resize = new System.Windows.Forms.Button();
+            this.tbp_Graves = new System.Windows.Forms.TabPage();
+            this.pnl_Canvas = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.picb_Canvas)).BeginInit();
             this.tbc_MainControl.SuspendLayout();
             this.tbp_Drawing.SuspendLayout();
+            this.pnl_Canvas.SuspendLayout();
             this.SuspendLayout();
             // 
             // picb_Canvas
@@ -53,13 +55,13 @@
             this.picb_Canvas.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.picb_Canvas.Location = new System.Drawing.Point(3, 3);
             this.picb_Canvas.Name = "picb_Canvas";
-            this.picb_Canvas.Size = new System.Drawing.Size(650, 794);
+            this.picb_Canvas.Size = new System.Drawing.Size(650, 791);
             this.picb_Canvas.TabIndex = 0;
             this.picb_Canvas.TabStop = false;
             // 
             // btn_Tester
             // 
-            this.btn_Tester.Location = new System.Drawing.Point(659, 638);
+            this.btn_Tester.Location = new System.Drawing.Point(686, 774);
             this.btn_Tester.Name = "btn_Tester";
             this.btn_Tester.Size = new System.Drawing.Size(138, 23);
             this.btn_Tester.TabIndex = 1;
@@ -79,7 +81,7 @@
             // 
             // rtxt_Graveyard
             // 
-            this.rtxt_Graveyard.Location = new System.Drawing.Point(659, 391);
+            this.rtxt_Graveyard.Location = new System.Drawing.Point(686, 385);
             this.rtxt_Graveyard.Name = "rtxt_Graveyard";
             this.rtxt_Graveyard.Size = new System.Drawing.Size(138, 173);
             this.rtxt_Graveyard.TabIndex = 3;
@@ -88,7 +90,7 @@
             // lbl_Cursor
             // 
             this.lbl_Cursor.AutoSize = true;
-            this.lbl_Cursor.Location = new System.Drawing.Point(659, 576);
+            this.lbl_Cursor.Location = new System.Drawing.Point(729, 273);
             this.lbl_Cursor.Name = "lbl_Cursor";
             this.lbl_Cursor.Size = new System.Drawing.Size(35, 13);
             this.lbl_Cursor.TabIndex = 4;
@@ -178,16 +180,6 @@
             this.tbp_Drawing.Text = "Drawing";
             this.tbp_Drawing.UseVisualStyleBackColor = true;
             // 
-            // tbp_Graves
-            // 
-            this.tbp_Graves.Location = new System.Drawing.Point(4, 22);
-            this.tbp_Graves.Name = "tbp_Graves";
-            this.tbp_Graves.Padding = new System.Windows.Forms.Padding(3);
-            this.tbp_Graves.Size = new System.Drawing.Size(153, 152);
-            this.tbp_Graves.TabIndex = 1;
-            this.tbp_Graves.Text = "Graves";
-            this.tbp_Graves.UseVisualStyleBackColor = true;
-            // 
             // btn_Resize
             // 
             this.btn_Resize.Location = new System.Drawing.Point(6, 149);
@@ -198,21 +190,41 @@
             this.btn_Resize.UseVisualStyleBackColor = true;
             this.btn_Resize.Click += new System.EventHandler(this.btn_Resize_Click);
             // 
+            // tbp_Graves
+            // 
+            this.tbp_Graves.Location = new System.Drawing.Point(4, 22);
+            this.tbp_Graves.Name = "tbp_Graves";
+            this.tbp_Graves.Padding = new System.Windows.Forms.Padding(3);
+            this.tbp_Graves.Size = new System.Drawing.Size(153, 178);
+            this.tbp_Graves.TabIndex = 1;
+            this.tbp_Graves.Text = "Graves";
+            this.tbp_Graves.UseVisualStyleBackColor = true;
+            // 
+            // pnl_Canvas
+            // 
+            this.pnl_Canvas.AutoScroll = true;
+            this.pnl_Canvas.Controls.Add(this.picb_Canvas);
+            this.pnl_Canvas.Location = new System.Drawing.Point(3, 3);
+            this.pnl_Canvas.Name = "pnl_Canvas";
+            this.pnl_Canvas.Size = new System.Drawing.Size(200, 100);
+            this.pnl_Canvas.TabIndex = 12;
+            // 
             // UC_DrawGraveyard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.pnl_Canvas);
             this.Controls.Add(this.tbc_MainControl);
             this.Controls.Add(this.lbl_Cursor);
             this.Controls.Add(this.rtxt_Graveyard);
             this.Controls.Add(this.btn_Tester);
-            this.Controls.Add(this.picb_Canvas);
             this.Name = "UC_DrawGraveyard";
             this.Size = new System.Drawing.Size(840, 800);
             ((System.ComponentModel.ISupportInitialize)(this.picb_Canvas)).EndInit();
             this.tbc_MainControl.ResumeLayout(false);
             this.tbp_Drawing.ResumeLayout(false);
             this.tbp_Drawing.PerformLayout();
+            this.pnl_Canvas.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -235,5 +247,6 @@
         private System.Windows.Forms.TabPage tbp_Drawing;
         private System.Windows.Forms.TabPage tbp_Graves;
         private System.Windows.Forms.Button btn_Resize;
+        private System.Windows.Forms.Panel pnl_Canvas;
     }
 }

@@ -43,10 +43,12 @@
             // 
             // pnl_MainView
             // 
+            this.pnl_MainView.AutoSize = true;
+            this.pnl_MainView.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.pnl_MainView.Controls.Add(this.uC_Display1);
             this.pnl_MainView.Location = new System.Drawing.Point(12, 55);
             this.pnl_MainView.Name = "pnl_MainView";
-            this.pnl_MainView.Size = new System.Drawing.Size(989, 673);
+            this.pnl_MainView.Size = new System.Drawing.Size(967, 669);
             this.pnl_MainView.TabIndex = 0;
             // 
             // menuStrip1
@@ -108,7 +110,9 @@
             // 
             // uC_Display1
             // 
-            this.uC_Display1.Location = new System.Drawing.Point(3, 3);
+            this.uC_Display1.AutoSize = true;
+            this.uC_Display1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.uC_Display1.Location = new System.Drawing.Point(0, 0);
             this.uC_Display1.Name = "uC_Display1";
             this.uC_Display1.Size = new System.Drawing.Size(964, 666);
             this.uC_Display1.TabIndex = 0;
@@ -117,6 +121,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1013, 754);
             this.Controls.Add(this.pnl_MainView);
             this.Controls.Add(this.menuStrip1);
@@ -124,6 +130,7 @@
             this.Name = "frm_GraveyardManager";
             this.Text = "Graveyard Manager";
             this.pnl_MainView.ResumeLayout(false);
+            this.pnl_MainView.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
