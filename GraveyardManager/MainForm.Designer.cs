@@ -45,10 +45,11 @@
             // 
             this.pnl_MainView.AutoSize = true;
             this.pnl_MainView.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pnl_MainView.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.pnl_MainView.Controls.Add(this.uC_Display1);
-            this.pnl_MainView.Location = new System.Drawing.Point(12, 55);
+            this.pnl_MainView.Location = new System.Drawing.Point(0, 27);
             this.pnl_MainView.Name = "pnl_MainView";
-            this.pnl_MainView.Size = new System.Drawing.Size(967, 669);
+            this.pnl_MainView.Size = new System.Drawing.Size(1030, 643);
             this.pnl_MainView.TabIndex = 0;
             // 
             // menuStrip1
@@ -60,7 +61,7 @@
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1013, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1039, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -112,9 +113,9 @@
             // 
             this.uC_Display1.AutoSize = true;
             this.uC_Display1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.uC_Display1.Location = new System.Drawing.Point(0, 0);
+            this.uC_Display1.Location = new System.Drawing.Point(3, 3);
             this.uC_Display1.Name = "uC_Display1";
-            this.uC_Display1.Size = new System.Drawing.Size(964, 666);
+            this.uC_Display1.Size = new System.Drawing.Size(1024, 637);
             this.uC_Display1.TabIndex = 0;
             // 
             // frm_GraveyardManager
@@ -123,7 +124,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1013, 754);
+            this.ClientSize = new System.Drawing.Size(1039, 674);
             this.Controls.Add(this.pnl_MainView);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;

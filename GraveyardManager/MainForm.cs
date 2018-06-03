@@ -16,6 +16,8 @@ namespace GraveyardManager
         #region frm_GraveyardManager Variables
         private FormWindowState fws_LastState;        //the last state of the window
         private Rectangle rect_InitialState;        //the initial state of the window
+        private Rectangle rect_PnlInitialState;     //the initial state of the panel
+        private Rectangle rect_PnlDrawingInitialState;      //the initial state of the drawing panel
         private int i_MaxWidth;     //the maximum width of the window
         private int i_MaxHeight;        //the maximum height of the window
         #endregion frm_GraveyardManager Variables
@@ -31,11 +33,33 @@ namespace GraveyardManager
             this.Resize += Frm_GraveyardManager_Resize;
             fws_LastState = this.WindowState;       //set the window state
             rect_InitialState = new Rectangle(this.Location, this.Size);        //create a new rectangle which indicates the default size of the form
-            i_MaxWidth = Screen.PrimaryScreen.Bounds.Width;       //get the width of the main screen
-            i_MaxHeight = Screen.PrimaryScreen.Bounds.Height;       //get the height of the main screen
+            rect_PnlInitialState = new Rectangle(pnl_MainView.Location, pnl_MainView.Size);     //create a new rectangle which indicates the default size of the panel
+            i_MaxWidth = Screen.PrimaryScreen.WorkingArea.Width;       //get the width of the main screen
+            i_MaxHeight = Screen.PrimaryScreen.WorkingArea.Height;       //get the height of the main screen
+            this.MaximumSize = new Size(i_MaxWidth, i_MaxHeight);       //set the maximum size of this form
             this.pnl_MainView.Size = this.uC_Display1.Size;     //set the size of the panel
+            this.pnl_MainView.Resize += Pnl_MainView_Resize;
         }
         #endregion public frm_GraveyardManager()
+
+        #region private void pnl_MainView_Resize(object sender, EventArgs e)
+        private void Pnl_MainView_Resize(object sender, EventArgs e)
+        {
+            Control[] conta = new Control[pnl_MainView.Controls.Count];     //create an array of controls to hold the controls info
+            pnl_MainView.Controls.CopyTo(conta, 0);      //get the controls that the panel has
+            //loop through each control that the panel has, not e that there should only be one control in this panel
+            foreach (Control c in conta)
+            {
+                //is the control we're looking at a user control?
+                if (c is UserControl)
+                {
+                    //then the control being examined is a user control, this is that wrapper around each set of controls
+                    //all the user control will need to happen is that it will need resized
+                    c.Size = new Size(pnl_MainView.Width, pnl_MainView.Height);
+                }
+            }
+        }
+        #endregion private void pnl_MainView_Resize(object sender, EventArgs e)
 
         #region private void Frm_GraveyardManager_Resize(object sender, EventArgs e)
         /// <summary>
@@ -46,29 +70,50 @@ namespace GraveyardManager
         /// <param name="e"></param>
         private void Frm_GraveyardManager_Resize(object sender, EventArgs e)
         {
-            if(this.Height > i_MaxHeight)
-            {
-                //then the resize needs to be stopped
-                this.Height = i_MaxHeight;      //prevent the resize from happening
-            }
-            if(this.Width > i_MaxWidth)
-            {
-                //then the resize needs to be stopped because the max width will exceed the screen
-                this.Width = i_MaxWidth;
-            }
-            //has the form gone from the window 
+            int i_PnlPadding = 40;       //padding of 5 pixels above and below the panel
+            this.Resize -= Frm_GraveyardManager_Resize;     //take the event off before changing the window size
+            //has the form gone from maximized to normal?
             if(fws_LastState == FormWindowState.Maximized && this.WindowState == FormWindowState.Normal)
             {
-                //the window should be returned to its last size and initial location
-                this.Resize -= Frm_GraveyardManager_Resize;     //take the event off before chaning the window size
+                //the resize is going from maximized to normalthe window should be returned to its last size and initial location
                 this.Location = rect_InitialState.Location;
                 this.Size = rect_InitialState.Size;
-                this.Resize += Frm_GraveyardManager_Resize;     //put the event back on since we've changed the window size
+                //resize the panel which holds the user control
+                Control[] conta = new Control[pnl_MainView.Controls.Count];        //create an array of controls
+                pnl_MainView.Controls.CopyTo(conta, 0);     //copy the controls to the array that has just been created
+                //go through each of those controls
+                foreach(Control cont in conta)
+                {
+                    //check to see if the control is a UserControl (Handle a special case for the DrawGraveyard user control
+                    if (cont is UC_DrawGraveyard)
+                    {
+                        //the uc_DrawGraveyard acts a little different then just a standard user control
+                        cont.Size = rect_PnlDrawingInitialState.Size;
+                    }
+                    else if (cont is UserControl)
+                    {
+                        //then it is safe to resize the user control
+                        cont.Size = new Size(rect_PnlInitialState.Width - i_PnlPadding, rect_PnlInitialState.Height - this.menuStrip1.Height - i_PnlPadding);      //resize the panel
+                    }
+                }
             }
-            //resize the panel which holds the user control
-            int i_PnlPadding = 5;       //padding of 5 pixels above and below the panel
-            pnl_MainView.Size = new Size(this.Width, this.Height - this.menuStrip1.Height - i_PnlPadding * 2);      //resize the panel
-            uC_Display1.Size = pnl_MainView.Size;       //set the size of the user control
+            else if (fws_LastState == FormWindowState.Normal && this.WindowState == FormWindowState.Maximized)
+            {
+                //then the resize is going from the normal state to the maximized state
+                Control[] conta = new Control[pnl_MainView.Controls.Count];        //create an array of controls
+                pnl_MainView.Controls.CopyTo(conta, 0);     //copy the controls to the array that has just been created
+                //go through each of those controls
+                foreach (Control cont in conta)
+                {
+                    //check to see if the control is a UserControl
+                    if (cont is UserControl)
+                    {
+                        //then it is safe to resize the user control
+                        cont.Size = new Size(this.Width - i_PnlPadding, this.Height - this.menuStrip1.Height - i_PnlPadding);      //resize the panel
+                    }
+                }
+            }
+            this.Resize += Frm_GraveyardManager_Resize;     //turn the resize event back on
             fws_LastState = this.WindowState;       //set the last state of the window
         }
         #endregion private void Frm_GraveyardManager_Resize(object sender, EventArgs e)
@@ -85,6 +130,7 @@ namespace GraveyardManager
             UserControl uc_Display = new UC_Display();      //create a new user control for viewing the DB
             pnl_MainView.Controls.Clear();      //clear the panel so we aren't over writing it
             pnl_MainView.Controls.Add(uc_Display);      //add a new panel view of the DB
+            pnl_MainView.Size = this.Size;
         }
         #endregion private void inhabitantsToolStripMenuItem_Click()
 
@@ -94,6 +140,8 @@ namespace GraveyardManager
             UserControl uc_DrawGraveyard = new UC_DrawGraveyard();      //create a new user control
             pnl_MainView.Controls.Clear();      //clear the panel
             pnl_MainView.Controls.Add(uc_DrawGraveyard);        //add a new panel view
+            pnl_MainView.Size = this.Size;
+            rect_PnlDrawingInitialState = new Rectangle(pnl_MainView.Location, pnl_MainView.Size);
         }
         #endregion private void drawGraveyardToolStripMenuItem_Click()
 

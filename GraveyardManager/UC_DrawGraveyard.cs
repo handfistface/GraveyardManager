@@ -20,6 +20,7 @@ namespace GraveyardManager
         private const int i_DSSingleRect = 1;       //Draw state that indicates the user is drawing one rectangle at a time
         private const int i_DSMultiRect = 2;        //draw that that indicates the user is dawing multiple rectangles at a time
         private ResizeWindow rw = null;     //used to resize the canvas
+        private Rectangle rect_InitialCanvas;       //used to represent the initial location and size of the canvas
         #endregion UC_DrawGraveyard Variables
         #region Graphics Variables
         private PictureBox picb_CommittedImage;     //The canvas after the user has made a change to it
@@ -39,6 +40,7 @@ namespace GraveyardManager
         /// <summary>
         /// This class creats a drawable canvas for the user to map the graveyard
         /// Also hooks to a few events that are required for drawing
+        /// The picb_CommittedImage initialization will occur in the Load callback for this user control
         /// </summary>
         public UC_DrawGraveyard()
         {
@@ -53,18 +55,22 @@ namespace GraveyardManager
             picb_Canvas.MouseClick += Picb_Canvas_MouseClick;
             txt_MultX.TextChanged += Txt_MultX_TextChanged;
             txt_MultY.TextChanged += Txt_MultY_TextChanged;
-            System.Timers.Timer t_Init = new System.Timers.Timer();     //use a timer for the initialization because this thing is finicky
-            t_Init.Elapsed += T_Init_Elapsed;
-            t_Init.Interval = 500;
-            t_Init.AutoReset = false;       //make sure this timer doesn't reset itself automatically
-            t_Init.Start();
             Size sz = new Size(picb_Canvas.Size.Width, picb_Canvas.Size.Height);
-            sz.Height -= 10;
-            sz.Width -= 10;
+            sz.Height += 5;
+            sz.Width += 5;
             pnl_Canvas.Size = sz;     //set the panel size to the canvas size
+            rect_InitialCanvas = new Rectangle(pnl_Canvas.Location, sz);       //create the intial canvas location and size
+            this.Resize += UC_DrawGraveyard_Resize;
         }
-
-        private void T_Init_Elapsed(object sender, ElapsedEventArgs e)
+        #endregion public UC_DrawGraveyard()
+        #region private void UC_DrawGraveyard_Load(object sender, EventArgs e)
+        /// <summary>
+        /// Uc_DrawGraveyard_Load()
+        /// This callback method is called whenever the page loads and everything is accessible
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void UC_DrawGraveyard_Load(object sender, EventArgs e)
         {
             Util.Init(rtxt_Graveyard);      //setup util to print to the graveyard text box
             //make sure the interface access is thread safe
@@ -87,9 +93,12 @@ namespace GraveyardManager
                 picb_Canvas.Update();
                 picb_CommittedImage = new PictureBox();
                 picb_CommittedImage.Image = (Image)picb_Canvas.Image.Clone();
+                Form frm_Parent = (Form)((Panel)this.Parent).Parent;        //get the parent window, the parent of this window is a panel, and its parent should be a Form
+                if (frm_Parent.WindowState == FormWindowState.Maximized)
+                    HandlePnlResizing();
             }
         }
-        #endregion public UC_DrawGraveyard()
+        #endregion private void UC_DrawGraveyard_Load(object sender, EventArgs e)
 
         #region private void Picb_Canvas_MouseClick(object sender, MouseEventArgs e)
         /// <summary>
@@ -856,8 +865,72 @@ namespace GraveyardManager
         private void Rw_FormClosing(object sender, FormClosingEventArgs e)
         {
             picb_Canvas.Size = rw.sz_Resized;       //get the resize size before closing the window
+            HandlePnlResizing();
             rw = null;
         }
         #endregion private void Rw_FormClosing(object sender, FormClosingEventArgs e)
+        #region private void UC_DrawGraveyard_Resize(object sender, EventArgs e)
+        /// <summary>
+        /// uc_DrawGraeyard_Resize()
+        /// This method is called whenever the user control resizes
+        /// Since the canvas can be resized it must be reverted back to its original settings if it exceeds the size of the user control
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void UC_DrawGraveyard_Resize(object sender, EventArgs e)
+        {
+            HandlePnlResizing();        //handle the panel resizing
+        }
+        #endregion private void UC_DrawGraveyard_Resize(object sender, EventArgs e)
+        #region private void HandlePnlResizing()
+        private void HandlePnlResizing()
+        {
+            int i_Padding = 5;      //5 pixels of padding, used for X and Y
+            int i_XNew = picb_Canvas.Width;      //set to a default X value
+            int i_YNew = picb_Canvas.Height;     //set to a default Y value
+            //adjust the size of the panel if you have the room
+            //does it have enough room on the width to resize itself?
+            //is the location.X + the pnl.width - tbc.Location.X > 0
+            if ((pnl_Canvas.Location.X + pnl_Canvas.Width) < tbc_MainControl.Location.X)
+            {
+                //then there's some room to resize the control on the X axis
+                i_XNew = tbc_MainControl.Location.X - pnl_Canvas.Location.X - i_Padding;
+                //catch the case of the new X being too large and giving the canvas too much room
+                if (i_XNew > picb_Canvas.Width)
+                    i_XNew = picb_Canvas.Width + i_Padding;     //then just force the width so there isn't any weird 
+                i_YNew = pnl_Canvas.Height + i_Padding;
+            }
+            //check to see if the pnl_Canvas X is too large to fit on the page on the X axis
+            if (pnl_Canvas.Width > (tbc_MainControl.Location.X - pnl_Canvas.Location.X))
+            {
+                //then the pnl will need reverted back to its original size
+                i_XNew = rect_InitialCanvas.Size.Width + i_Padding;
+                i_YNew = rect_InitialCanvas.Size.Height + i_Padding;
+            }
+            //does the panel have enough room to grow on the Y axis?
+            //is the pnl.location.Y + the pnl.Height < this.Height
+            if ((pnl_Canvas.Height + pnl_Canvas.Location.Y) < this.Height)
+            {
+                //then there's room to expand the height of the panel
+                i_YNew = this.Height - pnl_Canvas.Location.Y - i_Padding;
+                //catch the case of the new Y being too large and giving the canvas too much room
+                if (i_YNew > picb_Canvas.Height)
+                    i_YNew = picb_Canvas.Width + i_Padding;
+            }
+            //check to see if the pnl_Canvas is too large to fit on the page on the Y axis
+            if ((pnl_Canvas.Size.Height + pnl_Canvas.Location.Y) >= this.Height)
+            {
+                i_YNew = rect_InitialCanvas.Size.Height + i_Padding;
+                i_XNew = rect_InitialCanvas.Size.Width + i_Padding;
+            }
+            //does the pnl actually need resized
+            if(pnl_Canvas.Size.Width != i_XNew || pnl_Canvas.Size.Height != i_YNew)
+            {
+                this.Resize -= UC_DrawGraveyard_Resize;
+                pnl_Canvas.Size = new Size(i_XNew, i_YNew);
+                this.Resize += UC_DrawGraveyard_Resize;
+            }
+        }
+        #endregion private void HandlePnlResizing()
     }
 }

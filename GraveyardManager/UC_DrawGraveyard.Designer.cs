@@ -55,13 +55,14 @@
             this.picb_Canvas.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.picb_Canvas.Location = new System.Drawing.Point(3, 3);
             this.picb_Canvas.Name = "picb_Canvas";
-            this.picb_Canvas.Size = new System.Drawing.Size(650, 791);
+            this.picb_Canvas.Size = new System.Drawing.Size(800, 600);
             this.picb_Canvas.TabIndex = 0;
             this.picb_Canvas.TabStop = false;
             // 
             // btn_Tester
             // 
-            this.btn_Tester.Location = new System.Drawing.Point(686, 774);
+            this.btn_Tester.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Tester.Location = new System.Drawing.Point(826, 419);
             this.btn_Tester.Name = "btn_Tester";
             this.btn_Tester.Size = new System.Drawing.Size(138, 23);
             this.btn_Tester.TabIndex = 1;
@@ -81,7 +82,8 @@
             // 
             // rtxt_Graveyard
             // 
-            this.rtxt_Graveyard.Location = new System.Drawing.Point(686, 385);
+            this.rtxt_Graveyard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.rtxt_Graveyard.Location = new System.Drawing.Point(826, 240);
             this.rtxt_Graveyard.Name = "rtxt_Graveyard";
             this.rtxt_Graveyard.Size = new System.Drawing.Size(138, 173);
             this.rtxt_Graveyard.TabIndex = 3;
@@ -89,8 +91,9 @@
             // 
             // lbl_Cursor
             // 
+            this.lbl_Cursor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_Cursor.AutoSize = true;
-            this.lbl_Cursor.Location = new System.Drawing.Point(729, 273);
+            this.lbl_Cursor.Location = new System.Drawing.Point(879, 210);
             this.lbl_Cursor.Name = "lbl_Cursor";
             this.lbl_Cursor.Size = new System.Drawing.Size(35, 13);
             this.lbl_Cursor.TabIndex = 4;
@@ -154,9 +157,10 @@
             // 
             // tbc_MainControl
             // 
+            this.tbc_MainControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tbc_MainControl.Controls.Add(this.tbp_Drawing);
             this.tbc_MainControl.Controls.Add(this.tbp_Graves);
-            this.tbc_MainControl.Location = new System.Drawing.Point(676, 3);
+            this.tbc_MainControl.Location = new System.Drawing.Point(816, 3);
             this.tbc_MainControl.Name = "tbc_MainControl";
             this.tbc_MainControl.SelectedIndex = 0;
             this.tbc_MainControl.Size = new System.Drawing.Size(161, 204);
@@ -203,10 +207,12 @@
             // pnl_Canvas
             // 
             this.pnl_Canvas.AutoScroll = true;
+            this.pnl_Canvas.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pnl_Canvas.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.pnl_Canvas.Controls.Add(this.picb_Canvas);
             this.pnl_Canvas.Location = new System.Drawing.Point(3, 3);
             this.pnl_Canvas.Name = "pnl_Canvas";
-            this.pnl_Canvas.Size = new System.Drawing.Size(200, 100);
+            this.pnl_Canvas.Size = new System.Drawing.Size(809, 794);
             this.pnl_Canvas.TabIndex = 12;
             // 
             // UC_DrawGraveyard
@@ -219,7 +225,8 @@
             this.Controls.Add(this.rtxt_Graveyard);
             this.Controls.Add(this.btn_Tester);
             this.Name = "UC_DrawGraveyard";
-            this.Size = new System.Drawing.Size(840, 800);
+            this.Size = new System.Drawing.Size(980, 800);
+            this.Load += new System.EventHandler(this.UC_DrawGraveyard_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picb_Canvas)).EndInit();
             this.tbc_MainControl.ResumeLayout(false);
             this.tbp_Drawing.ResumeLayout(false);
