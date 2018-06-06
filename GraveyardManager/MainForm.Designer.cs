@@ -29,14 +29,15 @@
         private void InitializeComponent()
         {
             this.pnl_MainView = new System.Windows.Forms.Panel();
+            this.uC_Display1 = new GraveyardManager.UC_Display();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.drawGraveyardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inhabitantsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.uC_Display1 = new GraveyardManager.UC_Display();
             this.pnl_MainView.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -49,8 +50,17 @@
             this.pnl_MainView.Controls.Add(this.uC_Display1);
             this.pnl_MainView.Location = new System.Drawing.Point(0, 27);
             this.pnl_MainView.Name = "pnl_MainView";
-            this.pnl_MainView.Size = new System.Drawing.Size(1030, 643);
+            this.pnl_MainView.Size = new System.Drawing.Size(1030, 447);
             this.pnl_MainView.TabIndex = 0;
+            // 
+            // uC_Display1
+            // 
+            this.uC_Display1.AutoSize = true;
+            this.uC_Display1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.uC_Display1.Location = new System.Drawing.Point(3, 3);
+            this.uC_Display1.Name = "uC_Display1";
+            this.uC_Display1.Size = new System.Drawing.Size(1024, 441);
+            this.uC_Display1.TabIndex = 0;
             // 
             // menuStrip1
             // 
@@ -68,7 +78,8 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.loadFileToolStripMenuItem});
+            this.loadFileToolStripMenuItem,
+            this.saveFileToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.fileToolStripMenuItem.Text = "File...";
@@ -76,8 +87,15 @@
             // loadFileToolStripMenuItem
             // 
             this.loadFileToolStripMenuItem.Name = "loadFileToolStripMenuItem";
-            this.loadFileToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.loadFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.loadFileToolStripMenuItem.Text = "Load File...";
+            // 
+            // saveFileToolStripMenuItem
+            // 
+            this.saveFileToolStripMenuItem.Name = "saveFileToolStripMenuItem";
+            this.saveFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveFileToolStripMenuItem.Text = "Save File...";
+            this.saveFileToolStripMenuItem.Click += new System.EventHandler(this.saveFileToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 
@@ -108,15 +126,6 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-            // 
-            // uC_Display1
-            // 
-            this.uC_Display1.AutoSize = true;
-            this.uC_Display1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.uC_Display1.Location = new System.Drawing.Point(3, 3);
-            this.uC_Display1.Name = "uC_Display1";
-            this.uC_Display1.Size = new System.Drawing.Size(1024, 637);
-            this.uC_Display1.TabIndex = 0;
             // 
             // frm_GraveyardManager
             // 
@@ -150,6 +159,7 @@
         private System.Windows.Forms.ToolStripMenuItem drawGraveyardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem inhabitantsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveFileToolStripMenuItem;
     }
 }
 

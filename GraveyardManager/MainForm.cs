@@ -158,5 +158,30 @@ namespace GraveyardManager
             pnl_MainView.Controls.Add(uc_About);        //add the about user control to the panel
         }
         #endregion private void aboutToolStripMenuItem_Click()
+
+        #region private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Save tool strip menu item click
+        /// This method gets called whenever the user wants to just save the file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        #region private void saveFileToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Save File Tool Strip Menu Item CLick
+        /// This method gets called whenever the user wants to save the file as a specific file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void saveFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion private void saveFileToolStripMenuItem_Click(object sender, EventArgs e)
     }
 }
