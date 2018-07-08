@@ -65,5 +65,101 @@ namespace GraveyardManager
             rect_Grave = grave;     //set the grave rectangle
         }
         #endregion public Plot(Person per, string section, string id, List<string> notes, bool ashes, Rectangle grave)
+
+        #region public bool LooseCompareTo(Plot pl)
+        /// <summary>
+        /// LooseCompareTo()
+        /// Does a loose comparison to the Plot passed to the method, only compares one part of the plot
+        /// Will compare the rectangle co-ordinates and size and base the equality off only that
+        /// </summary>
+        /// <param name="pl">The plot that will be compared</param>
+        /// <returns>Boolean indicating if the two plots are similar</returns>
+        public bool LooseCompareTo(Plot pl)
+        {
+            bool b_IsSimilar = false;       //indicates if the plot is similar to the one being compared, will be returned
+            //null sanity check
+            if(rect_Grave != null && pl.rect_Grave != null)
+            {
+                //then the plot rectangles are valid and they can be compared
+                //compare the location
+                if(rect_Grave.Location.X == pl.rect_Grave.Location.X &&
+                    rect_Grave.Location.Y == pl.rect_Grave.Location.Y)
+                {
+                    //then the point of origin is equal for the plots
+                    //compare the dimensions of the plot
+                    if(rect_Grave.Size.Height == pl.rect_Grave.Size.Height &&
+                        rect_Grave.Size.Width == pl.rect_Grave.Size.Width)
+                    {
+                        //then the height and width of the graveyard plots are equal
+                        //for all intents and purposes the plt is the same
+                        b_IsSimilar = true;     //set the return to true
+                    }
+                    else
+                    {
+                        //otherwise the rectangles are not equal, set the return to false (even though its started as false)
+                        b_IsSimilar = false;
+                    }
+                }
+            }
+            else
+            {
+                //then a graveyard is null, they cannot be properly compared and will not equal one another
+                //set the return to false to indicate inequality
+                b_IsSimilar = false;
+            }
+            return b_IsSimilar;     //return the indicator of loose equality
+        }
+        #endregion public bool LooseCompareTo(Plot pl)
+        #region public bool StrictCompareTo(Plot pl)
+        /// <summary>
+        /// StrictCompareTo()
+        /// Does a strict comparison with all members of a Plot
+        /// Will compare the plot location and size first as this is going to likely be the least process intensive way to determine inequality
+        /// Please note that the sl_Notes is not compared
+        /// A Null reference will cause a short circuit behaviour and will force the method to return false
+        /// </summary>
+        /// <param name="pl">The Plot that will be compared to</param>
+        /// <returns>A bool indicating whether the plots are equal or not, will return false if a null reference is found</returns>
+        public bool StrictCompareTo(Plot pl)
+        {
+            bool b_IsSimilar = false;       //indicates if the plot is similar to the one being compared, will be returned
+            //null sanity check
+            if (s_Section == null || s_Id == null || 
+                pl.s_Section == null || pl.s_Id == null)
+            {
+                //then there was a null reference, return false to prevent any other issues with comparison
+                return false;
+            }
+            //First do a loose comparison to reduce processing involved with the plot comparison
+            if(LooseCompareTo(pl))
+            {
+                //then the plots are in the same location, this is going to mean that everything else will need compared
+                //compare the person
+                if(pers.CompareTo(pl.pers))
+                {
+                    //then the people are the same
+                    //compare the s_Section the s_id and the b_Ashes
+                    if (s_Section == pl.s_Section && 
+                        s_Id == pl.s_Id &&
+                        b_Ashes == pl.b_Ashes)
+                    {
+                        //then all of the variables are equal, set the return variable
+                        b_IsSimilar = true;
+                    }
+                }
+                else
+                {
+                    //the people are not the same
+                    b_IsSimilar = false;
+                }
+            }
+            else
+            {
+                //then the plots are not in the same location, short circuit the logic and exit out of the function to prevent unnecessary comparisons
+                b_IsSimilar = false;
+            }
+            return b_IsSimilar;     //return the indicator of strict equality
+        }
+        #endregion public bool StrictCompareTo(Plot pl)
     }
 }

@@ -17,17 +17,20 @@ namespace GraveyardManager
     public class Section
     {
         #region Public Variables
-        List<Plot> pll_Plots;       //list of plots which indicates inhabitants of the graveyard
+        public string s_SectionId;          //The id of the section
+        public List<Plot> pll_Plots;       //list of plots which indicates inhabitants of the graveyard
         #endregion Public Variables
 
         #region public Section()
         /// <summary>
         /// Section()
         /// Constructor for the graveyard section, just sets up the pll_Plots to be a valid object
+        /// The s_SectionId is set to DB_Storage.s_DEFAULT
         /// </summary>
         public Section()
         {
             pll_Plots = new List<Plot>();
+            s_SectionId = DB_Storage.s_DEFAULT;
         }
         #endregion public Section()
         #region public Section(List<Plot> pll)
@@ -37,9 +40,10 @@ namespace GraveyardManager
         /// Assigns the pll_Plots to a valid list
         /// </summary>
         /// <param name="pll"></param>
-        public Section(List<Plot> pll)
+        public Section(List<Plot> pll, string sectionid)
         {
-            pll_Plots = pll;
+            pll_Plots = pll;                //setup the list
+            s_SectionId = sectionid;        //setup the section id
         }
         #endregion public Section(List<Plot> pll)
 

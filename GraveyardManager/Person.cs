@@ -130,5 +130,155 @@ namespace GraveyardManager
             s_DOBDay = s_Day;           //set the date of birth day
         }
         #endregion public void SetDOB(string s_Year, string s_Month, string s_Day)
+
+        #region public bool CompareTo(Person pers)
+        /// <summary>
+        /// CompareTo()
+        /// This function compares the calling object with the argument passed
+        /// Return value will indicate equality
+        /// All variables of the objects are compared
+        /// Any null references will cause a return of false
+        /// </summary>
+        /// <param name="pers">The person that this instance will be compared to</param>
+        /// <returns>A bool indicating equality, true indicates equality, false indicates inequality</returns>
+        public bool CompareTo(Person pers)
+        {
+            bool b_IsSimilar = false;       //indicates equality, is the return variable
+            //compare the names by calling the class function
+            if(NameCompareTo(pers))
+            {
+                //then the names are equal
+                //compare the date of birth
+                if(DOBCompareTo(pers))
+                {
+                    //then the date of birth is equal
+                    //compare the date of death variables
+                    if(DODCompareTo(pers))
+                    {
+                        //then the date of death variables are equal, its fine to say this is the same person
+                        b_IsSimilar = true;
+                    }
+                    else
+                    {
+                        //otherwise the date of death variables are not equal
+                        b_IsSimilar = false;
+                    }
+                }
+                else
+                {
+                    //otherwise the date of birth is not equal
+                    b_IsSimilar = false;
+                }
+            }
+            else
+            {
+                //otherwise the names are not equal
+            }
+            return b_IsSimilar;
+        }
+        #endregion
+        #region public bool NameCompareTo(Person pers)
+        /// <summary>
+        /// NameCompareTo()
+        /// This function compares the calling object with the argument passed
+        /// Only compares the first, middle, and last names of both objects
+        /// Any null references will cause a return of false
+        /// </summary>
+        /// <param name="per">The person that will be compared</param>
+        /// <returns></returns>
+        public bool NameCompareTo(Person per)
+        {
+            bool b_IsSimilar = false;       //indicates equality, is the return variable
+            //catch any null issues
+            if (s_FirstName == null || s_MiddleName == null || s_LastName == null ||
+                per.s_FirstName == null || per.s_MiddleName == null || per.s_LastName == null)
+            {
+                //then there are some null references there, equality cannot be achieved
+                return false;
+            }
+            //compare the group of names
+            if(s_FirstName == per.s_FirstName && 
+                s_MiddleName == per.s_MiddleName &&
+                s_LastName == per.s_LastName)
+            {
+                //then the names are equal
+                b_IsSimilar = true;     //indicate equality
+            }
+            else
+            {
+                //then the names are not equal
+                b_IsSimilar = false;        //indicate inequality
+            }
+            return b_IsSimilar;     //indicate that the names are not similar
+        }
+        #endregion
+        #region public bool DOBCompareTo(Person pers)
+        /// <summary>
+        /// DOBCompareTo()
+        /// This function compraes the calling object with the argument passed
+        /// Return value with indicate equality
+        /// Only compares the DOB (date of birth) variables
+        /// Any null references will cause a return of false
+        /// </summary>
+        /// <param name="pers">The object that will be compared to</param>
+        /// <returns>A bool indicating equality</returns>
+        public bool DOBCompareTo(Person pers)
+        {
+            bool b_IsSimilar = false;        //indicates equality
+            //null sanity check
+            if(s_DOBDay == null || s_DOBMonth == null || s_DOBYear == null ||
+                pers.s_DOBDay == null || pers.s_DOBMonth == null || pers.s_DOBYear == null)
+            {
+                //then there was a null reference somewhere in there, return false
+                return false;
+            }
+            //now compare the DOB variables
+            if(s_DOBDay == pers.s_DOBDay && s_DOBMonth == pers.s_DOBMonth && s_DOBYear == pers.s_DOBYear)
+            {
+                //then the day, month, and year are equal, it's fine to set the return value
+                b_IsSimilar = true;
+            }
+            else
+            {
+                //otherwise something did not match up
+                b_IsSimilar = false;
+            }
+            return b_IsSimilar;
+        }
+        #endregion
+        #region public bool DODCompareTo(Person pers)
+        /// <summary>
+        /// DODCompareTo()
+        /// This function compares the calling object with the argument passed
+        /// Return value will indicate equality
+        /// Only the DOD (date of death) variables are compared
+        /// Any null references will cause a return of false
+        /// </summary>
+        /// <param name="pers">The person that will be compared</param>
+        /// <returns>A bool, true indicates equality, false indicates inequality</returns>
+        public bool DODCompareTo(Person pers)
+        {
+            bool b_IsSimilar = false;       //indicates equality, is the return variable
+            //null sanity check
+            if (s_DODDay == null || s_DODMonth == null || s_DODYear == null ||
+                pers.s_DODDay == null || pers.s_DODMonth == null || pers.s_DODYear == null)
+            {
+                //then there was a null reference somewhere, return false
+                return false;       //indicate failure
+            }
+            //compare the date of death variables now
+            if(s_DODDay == pers.s_DODDay && s_DODMonth == pers.s_DODMonth && s_DODYear == pers.s_DODYear)
+            {
+                //then the date of death variables are all equal, set the return
+                b_IsSimilar = true;
+            }
+            else
+            {
+                //otherwise the date of death variables are not equal, set the return
+                b_IsSimilar = false;
+            }
+            return b_IsSimilar;     //return the indicator for equality
+        }
+        #endregion
     }
 }
