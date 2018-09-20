@@ -79,6 +79,6 @@ namespace GraveyardManager
             }
             return s_Ret;
         }
-        #endregion privaet static string ParseOnlyIntHelper(string s_Text
+        #endregion private static string ParseOnlyIntHelper(string s_Text
     }
 }
