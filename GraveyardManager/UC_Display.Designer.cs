@@ -38,7 +38,12 @@
             this.col_Notes = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pnl_Buttons = new System.Windows.Forms.Panel();
             this.btn_Add = new System.Windows.Forms.Button();
+            this.btn_TestSql = new System.Windows.Forms.Button();
+            this.pnl_Debug = new System.Windows.Forms.Panel();
+            this.btn_SetupDB = new System.Windows.Forms.Button();
+            this.btn_LoadCleansedFile = new System.Windows.Forms.Button();
             this.pnl_Buttons.SuspendLayout();
+            this.pnl_Debug.SuspendLayout();
             this.SuspendLayout();
             // 
             // lstv_Patrons
@@ -97,10 +102,9 @@
             // 
             // pnl_Buttons
             // 
-            this.pnl_Buttons.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pnl_Buttons.BackColor = System.Drawing.SystemColors.ControlDark;
             this.pnl_Buttons.Controls.Add(this.btn_Add);
-            this.pnl_Buttons.Location = new System.Drawing.Point(804, 3);
+            this.pnl_Buttons.Location = new System.Drawing.Point(807, 3);
             this.pnl_Buttons.Name = "pnl_Buttons";
             this.pnl_Buttons.Size = new System.Drawing.Size(155, 116);
             this.pnl_Buttons.TabIndex = 2;
@@ -115,17 +119,60 @@
             this.btn_Add.UseVisualStyleBackColor = true;
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
+            // btn_TestSql
+            // 
+            this.btn_TestSql.Location = new System.Drawing.Point(3, 3);
+            this.btn_TestSql.Name = "btn_TestSql";
+            this.btn_TestSql.Size = new System.Drawing.Size(146, 23);
+            this.btn_TestSql.TabIndex = 3;
+            this.btn_TestSql.Text = "Test SQL";
+            this.btn_TestSql.UseVisualStyleBackColor = true;
+            this.btn_TestSql.Click += new System.EventHandler(this.btn_TestSql_Click);
+            // 
+            // pnl_Debug
+            // 
+            this.pnl_Debug.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pnl_Debug.Controls.Add(this.btn_LoadCleansedFile);
+            this.pnl_Debug.Controls.Add(this.btn_SetupDB);
+            this.pnl_Debug.Controls.Add(this.btn_TestSql);
+            this.pnl_Debug.Location = new System.Drawing.Point(804, 509);
+            this.pnl_Debug.Name = "pnl_Debug";
+            this.pnl_Debug.Size = new System.Drawing.Size(152, 154);
+            this.pnl_Debug.TabIndex = 4;
+            // 
+            // btn_SetupDB
+            // 
+            this.btn_SetupDB.Location = new System.Drawing.Point(3, 32);
+            this.btn_SetupDB.Name = "btn_SetupDB";
+            this.btn_SetupDB.Size = new System.Drawing.Size(146, 23);
+            this.btn_SetupDB.TabIndex = 4;
+            this.btn_SetupDB.Text = "Setup DB";
+            this.btn_SetupDB.UseVisualStyleBackColor = true;
+            this.btn_SetupDB.Click += new System.EventHandler(this.btn_SetupDB_Click);
+            // 
+            // btn_LoadCleansedFile
+            // 
+            this.btn_LoadCleansedFile.Location = new System.Drawing.Point(3, 61);
+            this.btn_LoadCleansedFile.Name = "btn_LoadCleansedFile";
+            this.btn_LoadCleansedFile.Size = new System.Drawing.Size(146, 23);
+            this.btn_LoadCleansedFile.TabIndex = 1;
+            this.btn_LoadCleansedFile.Text = "Load Cleansed File";
+            this.btn_LoadCleansedFile.UseVisualStyleBackColor = true;
+            this.btn_LoadCleansedFile.Click += new System.EventHandler(this.btn_LoadCleansedFile_Click);
+            // 
             // UC_Display
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Controls.Add(this.pnl_Debug);
             this.Controls.Add(this.pnl_Buttons);
             this.Controls.Add(this.lstv_Patrons);
             this.Name = "UC_Display";
-            this.Size = new System.Drawing.Size(964, 666);
+            this.Size = new System.Drawing.Size(965, 666);
             this.pnl_Buttons.ResumeLayout(false);
+            this.pnl_Debug.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -142,5 +189,9 @@
         private System.Windows.Forms.ColumnHeader col_DateOfDeath;
         private System.Windows.Forms.ColumnHeader col_Notes;
         private System.Windows.Forms.Button btn_Add;
+        private System.Windows.Forms.Button btn_TestSql;
+        private System.Windows.Forms.Panel pnl_Debug;
+        private System.Windows.Forms.Button btn_SetupDB;
+        private System.Windows.Forms.Button btn_LoadCleansedFile;
     }
 }

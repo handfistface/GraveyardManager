@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Utility;      //use the DLL for setting up the 
+using System.Threading;
+using Utility;      //use the DLL for setting up the Utility and LogManager
 
 namespace GraveyardManager
 {
@@ -30,6 +31,7 @@ namespace GraveyardManager
         /// </summary>
         public frm_GraveyardManager()
         {
+            LogManager.Init(Properties.Settings.Default.s_LoggingPath);     //intialize the LogManager for logging
             InitializeComponent();
             this.Resize += Frm_GraveyardManager_Resize;
             fws_LastState = this.WindowState;       //set the window state
@@ -40,10 +42,10 @@ namespace GraveyardManager
             this.MaximumSize = new Size(i_MaxWidth, i_MaxHeight);       //set the maximum size of this form
             this.pnl_MainView.Size = this.uC_Display1.Size;     //set the size of the panel
             this.pnl_MainView.Resize += Pnl_MainView_Resize;
-            LogManager.Init(Properties.Settings.Default.s_LoggingPath);     //intialize the LogManager for logging
+            DB_Storage.Init();      //initialize the database
 #if DEBUG
             Point po_DebugLoc = this.Location;      //set the location for the new debug window
-            po_DebugLoc.X = po_DebugLoc.X + this.Size.Width;       //adjust the width to be right beside the MainForm window
+            po_DebugLoc.Y = po_DebugLoc.Y + this.Size.Height;       //adjust the width to be right beside the MainForm window
             DebuggingUI dui = new DebuggingUI();        //create the new form
             dui.Location = po_DebugLoc;     //set the new location of the debug window
             dui.Show();

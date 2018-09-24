@@ -46,6 +46,30 @@ namespace GraveyardManager
             s_SectionId = sectionid;        //setup the section id
         }
         #endregion public Section(List<Plot> pll)
+        #region public Section(Plot plo)
+        /// <summary>
+        /// Constructor for the graveyard section
+        /// Creates a new plot list and will base the s_SectionId off of the new incoming plot
+        /// </summary>
+        /// <param name="plo"></param>
+        public Section(Plot plo)
+        {
+            pll_Plots = new List<Plot>();       //create a new list of plots 
+            s_SectionId = plo.s_Section;        //get the section and assign it to the public s_SectionId
+            AddPlot(plo);       //add the plot to the list of the section
+        }
+        #endregion
+
+        #region public AddPlot(Plot plo)
+        /// <summary>
+        /// Adds a plot to the list of plots contained in this section
+        /// </summary>
+        /// <param name="plo">The plot to add to the list</param>
+        public void AddPlot(Plot plo)
+        {
+            pll_Plots.Add(plo);     //add the plot to the list
+        }
+        #endregion
 
     }
 }

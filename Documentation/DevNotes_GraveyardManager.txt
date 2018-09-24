@@ -1,0 +1,13 @@
+GraveyardManager
+TODO:
+	Figure out exactly how I'm going to setup this DB
+
+****
+Work done before any releases
+****
+09-23-2018
+	Started working with the database, can access the DB, connection is semi functional, Utility DLL now has an SqlHelper public static class to support interacting with the DB in 
+	some different ways
+09-22-2018
+	Created the ability for the user to load a cleansed file into the DB_Storage public static class
+Created on 09-22-2018, previously I had a lot done to this program that I'm going to leave undocumented right now

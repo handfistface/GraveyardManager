@@ -63,18 +63,20 @@ namespace GraveyardManager
             string s_ToParse = sl_Lines.ElementAt(i_ListIndex);     //get the line that is currently being examined
             char[] ca_Delims = { '\t', ',', ' ' };      //deliminators used to split up each line
             string[] sa_Values = s_ToParse.Split(ca_Delims, StringSplitOptions.RemoveEmptyEntries);        //split up the line of text
-            if (sa_Values.Length > 1)
+            if (sa_Values.Length >= 1)
                 txt_Last.Text = sa_Values[0];       //set the last name
             txt_Middle.Text = "*";      //middle is not normally inputted
-            if (sa_Values.Length > 2)
+            if (sa_Values.Length >= 2)
                 txt_First.Text = sa_Values[1];      //set the first name
-            if (sa_Values.Length > 3)
+            if (sa_Values.Length >= 3)
                 txt_Section.Text = sa_Values[2];        //set the section
-            if (sa_Values.Length > 4)
+            if (sa_Values.Length >= 4)
                 txt_Id.Text = sa_Values[3];     //set the Id text
             txt_DOB.Text = "*";     //the date of birth is not normally recorded
             if (sa_Values.Length >= 5)
                 txt_DOD.Text = sa_Values[4];        //set the date of death
+            else
+                txt_DOD.Text = "*";     //otherwise the date of death is unknown
             txt_Ashes.Text = "n";       //populate ashes
             txt_Notes.Text = "*";
             txt_Raw.Text = s_ToParse;       //set the raw text text box
@@ -95,7 +97,9 @@ namespace GraveyardManager
             //create the line of text that will be commited to the output file
             string s_Line = txt_First.Text + "," + txt_Middle.Text + "," + txt_Last.Text + "," +
                 txt_Section.Text + "," + txt_Id.Text + "," + txt_DOB.Text + "," + txt_DOD.Text + "," +
-                txt_Ashes.Text + "," + txt_Notes.Text + ",";
+                txt_Ashes.Text +        //whether the person is ashes
+                ",0,0,0,0," + //plot location X, plot location Y, plot size width, plot size height
+                txt_Notes.Text + ",";
             FileInfo fi = new FileInfo(txt_OutputFile.Text);        //get the file info
             if (!fi.Exists)
             {

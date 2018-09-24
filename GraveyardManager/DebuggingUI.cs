@@ -16,6 +16,7 @@ namespace GraveyardManager
         public DebuggingUI()
         {
             InitializeComponent();
+            Utility.Util.Init(rtxt_Debug);
         }
         #endregion
 

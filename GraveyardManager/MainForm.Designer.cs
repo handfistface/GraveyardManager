@@ -50,7 +50,7 @@
             this.pnl_MainView.Controls.Add(this.uC_Display1);
             this.pnl_MainView.Location = new System.Drawing.Point(0, 27);
             this.pnl_MainView.Name = "pnl_MainView";
-            this.pnl_MainView.Size = new System.Drawing.Size(1030, 347);
+            this.pnl_MainView.Size = new System.Drawing.Size(1030, 128);
             this.pnl_MainView.TabIndex = 0;
             // 
             // uC_Display1
@@ -59,7 +59,7 @@
             this.uC_Display1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.uC_Display1.Location = new System.Drawing.Point(3, 3);
             this.uC_Display1.Name = "uC_Display1";
-            this.uC_Display1.Size = new System.Drawing.Size(1024, 341);
+            this.uC_Display1.Size = new System.Drawing.Size(1024, 122);
             this.uC_Display1.TabIndex = 0;
             // 
             // menuStrip1

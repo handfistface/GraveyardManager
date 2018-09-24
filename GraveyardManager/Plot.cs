@@ -12,7 +12,8 @@ namespace GraveyardManager
     /// Date: 05-06-2018
     /// Class Purpose:
     ///     This class keeps a representation of a graveyard plot
-    ///     A plot has a person, a section it exists in, and an ID of the grave
+    ///     A plot has a person, a section it exists in, an ID of the grave, whether the inhabitant is ashes, the plot location, 
+    ///     and any miscellaneous notes about the person
     /// </summary>
     public class Plot
     {

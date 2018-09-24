@@ -21,45 +21,33 @@ namespace GraveyardManager
         public string s_FirstName;      //first name
         public string s_MiddleName;     //middle name
         public string s_LastName;       //last name
-        public string s_DODMonth;       //date of death, month
-        public string s_DODDay;         //date of death, day
-        public string s_DODYear;        //date of death, year
-        public string s_DOBMonth;       //date of birth, month
-        public string s_DOBDay;         //date of birth, day
-        public string s_DOBYear;        //date of birth, year
+        public string s_DODDate;        //mm-dd-yyyy OR yyyy - Date of death
+        public string s_DOBDate;        //mm-dd-yyyy OR yyyy - Date of birth
         #endregion Person variables
 
-        #region public Person(string firstname, string middlename, string lastname, string dodmonth, string dodday, string dodyear)
+        #region public Person(string firstname, string middlename, string lastname, string doddate, string dobdate)
         /// <summary>
         /// public Person()
         /// Constructor for the person class
         /// Initializes all of the class variables to the relative variables
         /// </summary>
         /// <param name="firstname">The first name of the inhabitant</param>
-        /// <param name="middlename">The middle name of the inhabitant</param>
         /// <param name="lastname">The last name of the inhabitant</param>
-        /// <param name="dodmonth">The date of death month</param>
-        /// <param name="dodday">The date of death day</param>
-        /// <param name="dodyear">The date of death year</param>
-        /// <param name="dobmonth">Optional - The date of birth month</param>
-        /// <param name="dobday">Optional - The date of birth day</param>
-        /// <param name="dobyear">Optional - The date of birth year</param>
-        public Person(string firstname, string middlename, string lastname,
-            string dodmonth, string dodday, string dodyear,
-            string dobmonth = DB_Storage.s_DEFAULT, string dobday = DB_Storage.s_DEFAULT, string dobyear = DB_Storage.s_DEFAULT)
+        /// <param name="middlename">Optional - The middle name of the inhabitant</param>
+        /// <param name="doddate">Optional - The date of death month</param>
+        /// <param name="dobdate">Optional - The date of birth month</param>
+        public Person(string firstname, string lastname, string middlename = DB_Storage.s_DEFAULT,
+            string doddate = DB_Storage.s_DEFAULT, 
+            string dobdate = DB_Storage.s_DEFAULT)
         {
             //assign the name properties
             s_FirstName = firstname;        //set the first name
             s_MiddleName = middlename;      //set the middle name
             s_LastName = lastname;          //set the last name
             //assign the date of death properties
-            s_DODMonth = dodmonth;          //set the date of death month
-            s_DODDay = dodday;      //set the date of death day
-            s_DODYear = dodyear;        //set the date of death year
+            s_DODDate = doddate;          //set the date of death
             //assign the date of birth properties
-            s_DOBMonth = dobmonth;
-            s_DOBDay = dobday;
-            s_DOBYear = dobyear;
+            s_DOBDate = dobdate;        //set the date of birth
         }
         #endregion public Person(string firstname, string middlename, string lastname, string dodmonth, string dodday, string dodyear)
         #region public Person()
@@ -73,13 +61,9 @@ namespace GraveyardManager
             s_MiddleName = DB_Storage.s_DEFAULT;
             s_LastName = DB_Storage.s_DEFAULT;
             //assign the date of death properties
-            s_DODMonth = DB_Storage.s_DEFAULT;
-            s_DODDay = DB_Storage.s_DEFAULT;
-            s_DODYear = DB_Storage.s_DEFAULT;
+            s_DODDate = DB_Storage.s_DEFAULT;
             //assign the date of birth properties
-            s_DOBMonth = DB_Storage.s_DEFAULT;
-            s_DOBDay = DB_Storage.s_DEFAULT;
-            s_DOBYear = DB_Storage.s_DEFAULT;
+            s_DOBDate = DB_Storage.s_DEFAULT;
         }
         #endregion public Person()
 
@@ -104,14 +88,10 @@ namespace GraveyardManager
         /// SetDOD()
         /// This sets the person's date of death, the optional parameters are assigned to DB_Storage.s_DEFAULT
         /// </summary>
-        /// <param name="s_Year">The year of death</param>
-        /// <param name="s_Month">Optional - The month of death</param>
-        /// <param name="s_Day">Optional - The day of death</param>
-        public void SetDOD(string s_Year, string s_Month = DB_Storage.s_DEFAULT, string s_Day = DB_Storage.s_DEFAULT)
+        /// <param name="doddate">The date of death, in the format mm-dd-yyyy</param>
+        public void SetDOD(string doddate)
         {
-            s_DODYear = s_Year;         //set the date of death year
-            s_DODMonth = s_Month;       //set the date of death month
-            s_DODDay = s_Day;           //set the date of death day
+            s_DODDate = doddate;         //set the date of death
         }
         #endregion public void SetDOD(string s_Year, string s_Month, string s_Day)
 
@@ -120,14 +100,10 @@ namespace GraveyardManager
         /// SetDODSetDOB()
         /// This sets the person's date of birth, the optional parameters are assigned to DB_Storage.s_DEFAULT
         /// </summary>
-        /// <param name="s_Year">The year of birth</param>
-        /// <param name="s_Month">Optional - The month of deathbirth</param>
-        /// <param name="s_Day">Optional - The day of birth</param>
-        public void SetDOB(string s_Year, string s_Month = DB_Storage.s_DEFAULT, string s_Day = DB_Storage.s_DEFAULT)
+        /// <param name="dobdate">The year of birth</param>
+        public void SetDOB(string dobdate)
         {
-            s_DOBYear = s_Year;         //set the date of birth year
-            s_DOBMonth = s_Month;       //set the date of birth month
-            s_DOBDay = s_Day;           //set the date of birth day
+            s_DOBDate = dobdate;         //set the date of birth
         }
         #endregion public void SetDOB(string s_Year, string s_Month, string s_Day)
 
@@ -226,14 +202,13 @@ namespace GraveyardManager
         {
             bool b_IsSimilar = false;        //indicates equality
             //null sanity check
-            if(s_DOBDay == null || s_DOBMonth == null || s_DOBYear == null ||
-                pers.s_DOBDay == null || pers.s_DOBMonth == null || pers.s_DOBYear == null)
+            if(s_DOBDate == null || pers.s_DOBDate == null)
             {
                 //then there was a null reference somewhere in there, return false
                 return false;
             }
             //now compare the DOB variables
-            if(s_DOBDay == pers.s_DOBDay && s_DOBMonth == pers.s_DOBMonth && s_DOBYear == pers.s_DOBYear)
+            if(s_DOBDate == pers.s_DOBDate)
             {
                 //then the day, month, and year are equal, it's fine to set the return value
                 b_IsSimilar = true;
@@ -260,14 +235,13 @@ namespace GraveyardManager
         {
             bool b_IsSimilar = false;       //indicates equality, is the return variable
             //null sanity check
-            if (s_DODDay == null || s_DODMonth == null || s_DODYear == null ||
-                pers.s_DODDay == null || pers.s_DODMonth == null || pers.s_DODYear == null)
+            if (s_DODDate == null || pers.s_DODDate == null)
             {
                 //then there was a null reference somewhere, return false
                 return false;       //indicate failure
             }
             //compare the date of death variables now
-            if(s_DODDay == pers.s_DODDay && s_DODMonth == pers.s_DODMonth && s_DODYear == pers.s_DODYear)
+            if(s_DODDate == pers.s_DODDate)
             {
                 //then the date of death variables are all equal, set the return
                 b_IsSimilar = true;
