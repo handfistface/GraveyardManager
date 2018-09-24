@@ -5,6 +5,11 @@ TODO:
 ****
 Work done before any releases
 ****
+09-24-2018
+	There is some shared functionality that is going to be integrated between the webserver and the application, I have moved relevant classes to a shared library
+	New CSProj: GraveyardCommon
+	Added Utility.SqlHelper.DoesTableExist()
+	Created the MVC webpage page project, setup with Windows Authentication, titled project: GraveyardManagerWebpage
 09-23-2018
 	Started working with the database, can access the DB, connection is semi functional, Utility DLL now has an SqlHelper public static class to support interacting with the DB in 
 	some different ways

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using Utility;      //use the DLL for setting up the Utility and LogManager
+using GraveyardCommon;      //used for common classes and DLLs
 
 namespace GraveyardManager
 {

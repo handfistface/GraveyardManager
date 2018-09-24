@@ -11,11 +11,11 @@ D:\App_Dev\GraveyardManager\GraveyardManager\obj\Debug\GraveyardManager.UC_DrawG
 D:\App_Dev\GraveyardManager\GraveyardManager\obj\Debug\GraveyardManager.UC_About.resources
 D:\App_Dev\GraveyardManager\GraveyardManager\bin\Debug\audio\Windows Ding.wav
 D:\App_Dev\GraveyardManager\GraveyardManager\obj\Debug\GraveyardManager.ResizeWindow.resources
-D:\App_Dev\GraveyardManager\GraveyardManager\obj\Debug\GraveyardManager.csprojAssemblyReference.cache
 D:\App_Dev\GraveyardManager\GraveyardManager\obj\Debug\GraveyardManager.DebuggingUI.resources
 D:\App_Dev\GraveyardManager\GraveyardManager\obj\Debug\GraveyardManager.PatronsIngestion.resources
-D:\App_Dev\GraveyardManager\GraveyardManager\obj\Debug\GraveyardManager.csproj.CoreCompileInputs.cache
 D:\App_Dev\GraveyardManager\GraveyardManager\bin\Debug\Utility.dll
 D:\App_Dev\GraveyardManager\GraveyardManager\bin\Debug\Utility.pdb
 D:\App_Dev\GraveyardManager\GraveyardManager\bin\Debug\Utility.xml
-D:\App_Dev\GraveyardManager\GraveyardManager\obj\Debug\GraveyardManager.csproj.CopyComplete
+D:\App_Dev\GraveyardManager\GraveyardManager\obj\Debug\GraveyardManager.csprojResolveAssemblyReference.cache
+D:\App_Dev\GraveyardManager\GraveyardManager\bin\Debug\GraveyardCommon.dll
+D:\App_Dev\GraveyardManager\GraveyardManager\bin\Debug\GraveyardCommon.pdb

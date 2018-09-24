@@ -10,7 +10,8 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
-using Utility;
+using Utility;      //used for logging and miscellaneous utility
+using GraveyardCommon;      //used for common classes with graveyard programs
 using System.IO;
 
 namespace GraveyardManager

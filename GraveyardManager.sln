@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2026
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraveyardManager", "GraveyardManager\GraveyardManager.csproj", "{C741BA3E-313F-4798-8018-25987C8B1511}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility", "..\Utility\Utility\Utility.csproj", "{B273AB6F-BC7C-451E-8A40-A5757A8E41E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraveyardCommon", "GraveyardCommon\GraveyardCommon.csproj", "{6B3F92BD-2245-4886-A375-0F0498A4E50E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraveyardManagerWebpage", "GraveyardManagerWebpage\GraveyardManagerWebpage.csproj", "{D8C8055B-0ACA-4039-882E-2AB43B682A49}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{B273AB6F-BC7C-451E-8A40-A5757A8E41E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B273AB6F-BC7C-451E-8A40-A5757A8E41E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B273AB6F-BC7C-451E-8A40-A5757A8E41E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B3F92BD-2245-4886-A375-0F0498A4E50E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B3F92BD-2245-4886-A375-0F0498A4E50E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B3F92BD-2245-4886-A375-0F0498A4E50E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B3F92BD-2245-4886-A375-0F0498A4E50E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8C8055B-0ACA-4039-882E-2AB43B682A49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8C8055B-0ACA-4039-882E-2AB43B682A49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8C8055B-0ACA-4039-882E-2AB43B682A49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8C8055B-0ACA-4039-882E-2AB43B682A49}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
