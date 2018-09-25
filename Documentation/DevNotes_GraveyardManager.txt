@@ -10,6 +10,8 @@ Work done before any releases
 	New CSProj: GraveyardCommon
 	Added Utility.SqlHelper.DoesTableExist()
 	Created the MVC webpage page project, setup with Windows Authentication, titled project: GraveyardManagerWebpage
+	Moved the sql initialization code to a separate thread called whenever UC_Display is used
+	Added the Util.TableEntry class which describes an entry in a table for initialization
 09-23-2018
 	Started working with the database, can access the DB, connection is semi functional, Utility DLL now has an SqlHelper public static class to support interacting with the DB in 
 	some different ways

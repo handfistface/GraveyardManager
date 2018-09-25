@@ -33,6 +33,8 @@ namespace GraveyardManager
         public frm_GraveyardManager()
         {
             LogManager.Init(Properties.Settings.Default.s_LoggingPath);     //intialize the LogManager for logging
+            LogManager.WriteLine("");       //write a line
+            LogManager.WriteLine("Boot -- GraveyardManager application is now starting");
             InitializeComponent();
             this.Resize += Frm_GraveyardManager_Resize;
             fws_LastState = this.WindowState;       //set the window state

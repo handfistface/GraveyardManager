@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Utility;
 
 namespace GraveyardManager
 {
@@ -16,7 +17,7 @@ namespace GraveyardManager
         public DebuggingUI()
         {
             InitializeComponent();
-            Utility.Util.Init(rtxt_Debug);
+            Util.Init(rtxt_Debug);
         }
         #endregion
 
