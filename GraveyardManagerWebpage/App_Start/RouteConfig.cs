@@ -18,6 +18,11 @@ namespace GraveyardManagerWebpage
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            //map the route for the Hello world class
+            routes.MapRoute(
+                name: "Hello",
+                url: "{controller}/{action}/{name}/{id}");
         }
     }
 }
