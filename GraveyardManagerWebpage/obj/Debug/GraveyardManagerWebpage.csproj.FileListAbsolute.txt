@@ -38,3 +38,7 @@ D:\App_Dev\GraveyardManager\GraveyardManagerWebpage\bin\Newtonsoft.Json.xml
 D:\App_Dev\GraveyardManager\GraveyardManagerWebpage\obj\Debug\GraveyardManagerWebpage.csprojResolveAssemblyReference.cache
 D:\App_Dev\GraveyardManager\GraveyardManagerWebpage\obj\Debug\GraveyardManagerWebpage.dll
 D:\App_Dev\GraveyardManager\GraveyardManagerWebpage\obj\Debug\GraveyardManagerWebpage.pdb
+D:\App_Dev\GraveyardManager\GraveyardManagerWebpage\bin\EntityFramework.dll
+D:\App_Dev\GraveyardManager\GraveyardManagerWebpage\bin\EntityFramework.SqlServer.dll
+D:\App_Dev\GraveyardManager\GraveyardManagerWebpage\bin\EntityFramework.xml
+D:\App_Dev\GraveyardManager\GraveyardManagerWebpage\bin\EntityFramework.SqlServer.xml

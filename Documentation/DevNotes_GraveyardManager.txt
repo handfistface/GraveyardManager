@@ -5,6 +5,9 @@ TODO:
 ****
 Work done before any releases
 ****
+09-26-2018
+	Working on the webpage, integrating some models, cannot fully integrate because VS crashes as I launch the NuGet package manager to add the Entity Framework to the project
+	Actually was able to install the framework from the NuGet command line tool
 09-25-2018
 	Worked on webpage
 	Finished the TableEntry class, moved the SqlHelper and the TableEntry classes to the GraveyardCommon DLL instead of the Utility DLL

@@ -5,6 +5,4 @@ D:\App_Dev\GraveyardManager\GraveyardCommon\bin\Debug\Utility.pdb
 D:\App_Dev\GraveyardManager\GraveyardCommon\bin\Debug\Utility.xml
 D:\App_Dev\GraveyardManager\GraveyardCommon\obj\Debug\GraveyardCommon.dll
 D:\App_Dev\GraveyardManager\GraveyardCommon\obj\Debug\GraveyardCommon.pdb
-D:\App_Dev\GraveyardManager\GraveyardCommon\obj\Debug\GraveyardCommon.csprojAssemblyReference.cache
-D:\App_Dev\GraveyardManager\GraveyardCommon\obj\Debug\GraveyardCommon.csproj.CoreCompileInputs.cache
-D:\App_Dev\GraveyardManager\GraveyardCommon\obj\Debug\GraveyardCommon.csproj.CopyComplete
+D:\App_Dev\GraveyardManager\GraveyardCommon\obj\Debug\GraveyardCommon.csprojResolveAssemblyReference.cache
