@@ -75,11 +75,8 @@ namespace GraveyardManager
                 {
                     //otherwise the table does not exist
                     Util.rtxtWriteLine(s_ClassMethod + " -- Table [" + s_TableName + "] does not exist. Creating the table.");
-                    using (SqlCommand sql_CreateTable = new SqlCommand("CREATE TABLE " + s_TableName, sql_Connection))
-                    {
-                        sql_CreateTable.Connection.Open();      //open the connection before running the command
-                        sql_CreateTable.ExecuteNonQuery();      //run the create table command
-                    }
+                    List<TableEntry> lte_Plot = BuildPlotTable();     //list which holds all of the table entries for the plot
+                    SqlHelper.CreateTable(sql_Connection, s_TableName, lte_Plot);       //create the table for the DB
                     Thread_StartSqlConnection();        //recursively call this method to allow for any extra analysis to occur
                 }
             }
@@ -188,6 +185,34 @@ namespace GraveyardManager
                     lstv_Patrons.Items.Add(new ListViewItem(sa_Line));      //add the patron to the UI
                 }
             }
+        }
+        #endregion
+
+        #region private List<TableEntry> BuildPlotTable()
+        /// <summary>
+        /// Builds the plot table and uses the Plot object to base the information on
+        /// </summary>
+        /// <returns>A list of TableEntries describing the columns of the table</returns>
+        private List<TableEntry> BuildPlotTable()
+        {
+            List<TableEntry> lte_Plots = new List<TableEntry>();        //used as a return, holds all of the table entries
+            lte_Plots.Add(new TableEntry(TableEntry.ColTypes.AutoIncrement, "Id"));     //create the ID of the entry
+            //describe the person information
+            lte_Plots.Add(new TableEntry(TableEntry.ColTypes.VarChar, "FirstName"));        //the first name of the person
+            lte_Plots.Add(new TableEntry(TableEntry.ColTypes.VarChar, "MiddleName"));       //the middle name of the person
+            lte_Plots.Add(new TableEntry(TableEntry.ColTypes.VarChar, "LastName"));     //the last name of the person
+            lte_Plots.Add(new TableEntry(TableEntry.ColTypes.VarChar, "DoD"));     //the date of death of the person
+            lte_Plots.Add(new TableEntry(TableEntry.ColTypes.VarChar, "DoB"));      //the date of birth of the person
+            //describe the raw plot information
+            lte_Plots.Add(new TableEntry(TableEntry.ColTypes.VarChar, "Section"));      //the section letter
+            lte_Plots.Add(new TableEntry(TableEntry.ColTypes.VarChar, "SectionId"));        //the section ID number
+            lte_Plots.Add(new TableEntry(TableEntry.ColTypes.VarChar, "Notes"));        //the notes for the plot
+            lte_Plots.Add(new TableEntry(TableEntry.ColTypes.VarChar, "Ashes"));        //whether the inhabitant of hte plot was creamated
+            lte_Plots.Add(new TableEntry(TableEntry.ColTypes.Int, "RectX"));        //the plot X location
+            lte_Plots.Add(new TableEntry(TableEntry.ColTypes.Int, "RectY"));        //the plot Y location
+            lte_Plots.Add(new TableEntry(TableEntry.ColTypes.Int, "RectWidth"));        //the plot width
+            lte_Plots.Add(new TableEntry(TableEntry.ColTypes.Int, "RectHeight"));       //the plot height
+            return lte_Plots;       //return the list
         }
         #endregion
     }
