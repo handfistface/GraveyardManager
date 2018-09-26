@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GraveyardManagerWebpage.Models
 {
@@ -14,13 +16,15 @@ namespace GraveyardManagerWebpage.Models
     ///     This class is used to test the model aspect of MVC
     ///     Not to be used on release
     /// </summary>
+    [Table("MovieDetails")]
     public class Movie
     {
-        public int ID;
-        public string Title;
-        public DateTime ReleaseDate;
-        public string Genre;
-        public decimal Price;
+        [Key]
+        public int ID { get; set; }
+        public string Title { get; set; }
+        public DateTime ReleaseDate { get; set; }
+        public string Genre { get; set; }
+        public decimal Price { get; set; }
     }
 
     /// <summary>
@@ -33,6 +37,6 @@ namespace GraveyardManagerWebpage.Models
     /// </summary>
     public class MovieDBContext : DbContext
     {
-        public DbSet<Movie> Movies;
+        public DbSet<Movie> Movies { get; set; }
     }
 }
