@@ -44,3 +44,8 @@ D:\App_Dev\GraveyardManager\GraveyardManagerWebpage\bin\EntityFramework.SqlServe
 D:\App_Dev\GraveyardManager\GraveyardManagerWebpage\obj\Debug\GraveyardManagerWebpage.csprojAssemblyReference.cache
 D:\App_Dev\GraveyardManager\GraveyardManagerWebpage\obj\Debug\GraveyardManagerWebpage.csproj.CoreCompileInputs.cache
 D:\App_Dev\GraveyardManager\GraveyardManagerWebpage\obj\Debug\GraveyardManagerWebpage.csproj.CopyComplete
+D:\App_Dev\GraveyardManager\GraveyardManagerWebpage\bin\GraveyardCommon.dll
+D:\App_Dev\GraveyardManager\GraveyardManagerWebpage\bin\Utility.dll
+D:\App_Dev\GraveyardManager\GraveyardManagerWebpage\bin\Utility.pdb
+D:\App_Dev\GraveyardManager\GraveyardManagerWebpage\bin\Utility.xml
+D:\App_Dev\GraveyardManager\GraveyardManagerWebpage\bin\GraveyardCommon.pdb

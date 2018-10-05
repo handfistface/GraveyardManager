@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Utility</name>
+    </assembly>
+    <members>
+        <member name="T:Utility.DLL">
+            <summary>
+            Author: John Kirschner
+            Date: 09-18-2018
+            Class Purpose:
+                Holds constant information about the DLL that is being utilized
+            </summary>
+        </member>
+        <member name="F:Utility.DLL.VERSION">
+            <summary>
+            The version of the DLL
+            </summary>
+        </member>
+        <member name="T:Utility.LogManager">
+            <summary>
+            Author: John Kirschner
+            Date: 09-17-2018
+            Class Purpose:
+                The LogManager class handles managing all of the logs of the application
+                Static is used because there can only ever be one instance of LogManager per application
+                Logging is thread safe
+                Logs are created in the AppData folder for the current user
+                Logs are also created based on the day
+                Whenever the Init() method is run old logs will be cleaned out
+                Not to be used on windows less than Vista (works off the AppData location), based off the C:\ drive
+            </summary>
+        </member>
+        <member name="M:Utility.LogManager.Init(System.String)">
+            <summary>
+            public static void Init(string s_AppDataLocalFolder)
+            This is used to setup the static class
+            Usually run on program start
+            All logs will be recorded in the current user's AppData/Local/ folder
+            If the folder does not exist then it will be created
+            Deletes old txt files in the target directory older than 30 days
+            </summary>
+            <param name="s_AppDataLocalFolder">The folder which the logs will be created and written to, example: "UtilityProgram" will create the folder "UtilityProgram" in the 
+                current user's AppData\Local folder, forward and back slash characters will be removed</param>
+            <exception cref="T:System.IO.IOException">Creating a directory can throw an IOException</exception>
+        </member>
+        <member name="M:Utility.LogManager.WriteLine(System.String)">
+            <summary>
+            public static void WriteLine(string s_Line)
+            Writes a line of text to an output file based on the record path and the current date
+            The file name will be based off the date and the recording path, will be a .txt file
+            Kind of inefficient since the file name has to be recalcuated everytime this method runs, performance hasn't been an issue as of yet
+            Is thread safe
+            </summary>
+            <param name="s_Line">The line of text to write to the file, new line should not be added to the end of this line</param>
+            <exception cref="T:System.NullReferenceException">Thrown whenever the recording path is set to null indicating that the user needs to call Init() prior to executing this method</exception>
+        </member>
+        <member name="M:Utility.LogManager.GetDate">
+            <summary>
+            public static string GetDate()
+            Gets the current date and returns it in a string format
+            The return format will be in the following format:
+                YYYY_MM_DD
+            Both MM and DD will be padded with 0 if they are less than 9
+            </summary>
+            <returns>A string indicating the current date in the format YYYY_MM_DD</returns>
+        </member>
+        <member name="M:Utility.LogManager.GetTime">
+            <summary>
+            public static string GetTime()
+            Gets the current time and returns it in a string format
+            The return format will be in the following format:
+                HH_MM_SS
+            All three values will be padded with 0 if necessary
+            </summary>
+            <returns>A string indicating the current time in the format HH_MM_SS</returns>
+        </member>
+        <member name="T:Utility.Util">
+            <summary>
+            Author: John Kirschner
+            Creation Date: 09-17-2018
+            Class Purpose:
+                The Util class is a static class which will host miscellaneous functionality
+            </summary>
+        </member>
+        <member name="M:Utility.Util.Init(System.Windows.Forms.RichTextBox)">
+            <summary>
+            This method initializes the static Util class
+            It is advised to call this before calling any other methods
+            </summary>
+            <param name="rtxt">A rich text box that will be used in conjuction with rtxtWriteLine()</param>
+        </member>
+        <member name="M:Utility.Util.rtxtWriteLine(System.String)">
+            <summary>
+            public static void rtxtWriteLine(string s_Line)
+            This method prints s_Line to a rich text box, will print a new line at the end of the string automatically
+            </summary>
+            <param name="s_Line">The line that will be printed to the rich text box</param>
+        </member>
+        <member name="M:Utility.Util.WriteToTextBox(System.String,System.Windows.Forms.RichTextBox)">
+            <summary>
+            Used to write to a text box, used mainly in rtxtWriteLine() to write where invoking is required
+            Only used in this class, not accessible outside
+            </summary>
+            <param name="s_Line">The line to write</param>
+            <param name="rtxt_ToWrite">The rich text box to write to</param>
+        </member>
+        <member name="M:Utility.Util.CalcDateDifferenceDays(System.DateTime,System.DateTime)">
+            <summary>
+            Calculates the date difference between two datetimes
+            Returns the difference in terms of days
+            Aboslute difference so the return is unsigned and does not signify which DateTime is greater, for that use DateTime.Compare()
+            </summary>
+            <param name="dt1">The first date time to calculate the difference for</param>
+            <param name="dt2">The second date time to calculate the difference for</param>
+            <returns>An unsigned int indicating the difference in days, absolute value so there is no indication of which date time is greater</returns>
+        </member>
+        <member name="M:Utility.Util.DeleteOldFiles(System.String,System.UInt32,System.String)">
+            <summary>
+            Deletes old files in the specified directory
+            Files older than the ui_DateDifference parameter will be deleted
+            All of the deleted files will be returned in a string list
+            Is not recursive, if needed, functionality will be added later
+            If the target directory does not exist then this method will return
+            The file last write time is used to determine if the file will be deleted
+            </summary>
+            <param name="s_PathToDelete">The path that will be examined to delete old files</param>
+            <param name="ui_DayDifference">The day difference which indicates when a file should be deleted</param>
+            <param name="s_SearchPattern">The search pattern of files that will be examined, example: "*.log", defaults to "*" indicating all files will be examined</param>
+            <returns>A list of files that were deleted from the file system, only the file names, not the path</returns>
+            <exception cref="T:System.NullReferenceException">Thrown whenever a null parameter is passed to this method</exception>
+            <exception cref="T:System.IO.IOException">Can occur when a file is attempted to be deleted, a number of other exceptions can occur, if curious, please review System.IO.FileInfo.Delete()</exception>
+            <exception cref="T:System.ArgumentException">Can be thrown whenever the s_SearchPattern is not correct</exception>
+        </member>
+    </members>
+</doc>
